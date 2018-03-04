@@ -1,0 +1,34 @@
+.tsPlayerControls {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  .ctrBtn{
+    padding: 0;
+    height: 39px;
+    width: 39px;
+    color:#fff;
+    font-size: 17px;
+    background-image: -moz-linear-gradient(-44.718deg, rgb(48, 35, 174) 0%, rgb(200, 109, 215) 100%);
+    background-image: -webkit-linear-gradient(-44.718deg, rgb(48, 35, 174) 0%, rgb(200, 109, 215) 100%);
+    background-image: -ms-linear-gradient(-44.718deg, rgb(48, 35, 174) 0%, rgb(200, 109, 215) 100%);
+  }
+  .md-text--inherit{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    img{
+      margin-top: 1px;
+      margin-left: 1px;
+      height: 18px;
+      width: 18px;
+      display: block;
+    }
+  }
+  .bigPlay{
+    height: 59px;
+    width: 59px;
+    margin: 0 15px;
+  }
+}

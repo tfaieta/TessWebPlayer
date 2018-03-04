@@ -1,0 +1,418 @@
+@import '_normalize';
+@import '_variables';
+
+* {
+  font-family: 'Montserrat', sans-serif;
+}
+
+*::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  background-color: #F5F5F5;
+}
+
+*::-webkit-scrollbar {
+  width: 6px;
+  background-color: #F5F5F5;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #aeaeae;
+}
+
+#app {
+  height: 100%;
+}
+
+.grid-tess {
+  height: 100%;
+}
+
+a {
+  text-decoration: none;
+  transition: all .3s ease;
+}
+
+a:hover {
+  transition: all .3s ease;
+}
+
+a:visited, a:active {
+  color: inherit;
+}
+
+html, body {
+  min-height: 100%;
+  height: 100%;
+  background-color: #fff;
+  overflow: hidden;
+}
+
+@import '~react-md/src/scss/react-md';
+
+$md-primary-color: #5757FF;
+$md-secondary-color: #8e8ef5;
+@include react-md-everything;
+
+// All the components will now be themed using teal and lime.
+// Now we want a dark theme using the same colors
+
+@include react-md-theme-everything(
+                $md-primary-color,
+                $md-secondary-color,
+                false, // specifying dark-theme
+                'dark-theme' // class name to wrap dark-theme styles in
+);
+h1, h2, h3, h4, h5, h6 {
+  line-height: 1.5;
+  color: #222;
+
+}
+
+body {
+  color: #222;
+}
+
+.grid-tess > div:nth-child(1) {
+  width: 100%;
+}
+
+.tsDefaultBtn {
+  margin: 0;
+  color: #fff;
+  padding: 0 36px;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 45px;
+  height: 45px;
+  background: none;
+  text-transform: capitalize;
+  background-image: -moz-linear-gradient(-44.718deg, rgb(48, 35, 174) 0%, rgb(200, 109, 215) 100%);
+  background-image: -webkit-linear-gradient(-44.718deg, rgb(48, 35, 174) 0%, rgb(200, 109, 215) 100%);
+  background-image: -ms-linear-gradient(-44.718deg, rgb(48, 35, 174) 0%, rgb(200, 109, 215) 100%);
+}
+
+.grid-tess {
+  > div:nth-child(1) {
+    height: 100%;
+  }
+}
+
+.container {
+  width: 100% !important;
+  padding: 0 25px;
+}
+
+.tcontainer {
+  padding: 0 15px;
+}
+
+.grid-wrap {
+  width: 100%;
+}
+
+.trow {
+  padding: 0 15px;
+  width: 100%;
+  display: flex;
+  &.trow-grid {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+  }
+}
+
+.trow-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  margin-top: 15px;
+  &:nth-child(1) {
+    margin-top: 0px;
+  }
+  .tsCategories {
+    justify-content: flex-end;
+    display: flex;
+    ul li:nth-last-child(1) {
+      margin-right: 0;
+    }
+  }
+}
+
+.tsHeaderTitles {
+  width: 100%;
+  padding-left: 2px;
+  h1, h2 {
+    margin: 0;
+    font-size: 24px;
+    font-weight: 600;
+  }
+  .subtitle {
+    font-size: 10px;
+    line-height: 22px;
+    font-weight: 700;
+    color: #888888;
+    text-transform: uppercase;
+  }
+}
+
+.tcontent {
+  height: 100%;
+  width: 100%;
+  background-color: #eeeeee;
+  padding-top: 90px;
+  padding-bottom: 128px;
+  display: flex;
+  flex-direction: row;
+}
+
+.trow-column {
+  flex-direction: column;
+  align-content: flex-start;
+  width: 100%;
+}
+
+.tsscrollwrap {
+  flex: 1;
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  min-width: 862px;
+  .tsscrollcontent {
+    min-height: 100%;
+    max-width: 1600px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 20px 0;
+    h1 {
+      color: #222;
+      font-size: 24px;
+      font-weight: 600;
+    }
+  }
+}
+
+/*Upload*/
+
+.upload-page {
+  .tsscrollcontent {
+    display: flex;
+    flex-direction: row;
+    padding: 0;
+    max-width: none;
+    .uploadWrap {
+      flex: 1;
+      background: url('../images/upload.png') center center no-repeat;
+      background-size: cover;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 25px;
+      h2 {
+        font-size: 72px;
+        color: #fff;
+        line-height: 1.5;
+        letter-spacing: 0.6px;
+        max-width: 500px;
+      }
+
+    }
+
+    .whiteBack {
+      background-color: #fff;
+      flex: 1;
+      .halfBlock {
+        max-width: 770px;
+        height: 100%;
+        width: 100%;
+        margin: 0;
+        padding: 30px 30px;
+        .text-fields__application {
+          width: 100%;
+          max-width: 560px;
+          margin: 0 auto;
+          .md-text-field--name {
+            height: 23px !important;
+          }
+          .md-floating-label {
+            padding-left: 8px;
+          }
+          textarea, input {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 13px;
+            color: #222;
+            padding-left: 8px;
+          }
+          .md-text-field-container--input {
+            margin-bottom: 20px;
+          }
+          .md-text--secondary {
+            font-size: 13px;
+            color: #bbbbbb;
+            font-weight: 600;
+          }
+          .md-divider--text-field {
+            height: 2px;
+          }
+          .formBtnWrap {
+            margin-top: 56px;
+            text-align: center;
+          }
+          .tsDefaultBtn {
+            width: 205px;
+            font-weight: 600;
+            font-size: 18px;
+          }
+          .uploadCategoriesWrap {
+            margin-top: 25px;
+            h4 {
+              color: #bbbbbb;
+              font-size: 18px;
+            }
+          }
+
+        }
+      }
+    }
+  }
+
+}
+
+.learn-page {
+  .tsscrollwrap {
+    background-color: #eaeaea;
+  }
+  .tsscrollcontent {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    padding: 20px 0;
+    position: relative;
+    padding-bottom: 220px;
+    max-width: none;
+  }
+  .container {
+    max-width: 1400px;
+    min-width: 980px;
+  }
+  h2 {
+    color: #222;
+    font-weight: 600;
+    font-size: 24px;
+  }
+  .backLearn {
+    background: url('../images/learn-bg.png') top center no-repeat;
+    background-size: cover;
+    min-height: 160px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    .backWrap {
+      display: flex;
+      flex-direction: row;
+      width: 70%;
+      padding: 40px 15px 25px;
+      color: #fff;
+      a {
+        color: #fff;
+        font-size: 13px;
+        font-weight: 400;
+        img {
+          display: block;
+          width: 65px;
+          height: 65px;
+          transition: all .3s ease;
+          &:hover {
+            transition: all .3s ease;
+            transform: scale(1.05);
+          }
+        }
+      }
+      ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        li {
+          padding: 0;
+          span {
+            display: block;
+            font-weight: 600;
+            font-size: 13px;
+          }
+
+        }
+      }
+      .comunity {
+        h4 {
+          padding-left: 7px;
+        }
+        a {
+          display: inline-block;
+        }
+        ul {
+          margin-top: 5px;
+          display: flex;
+          flex-direction: row;
+          margin-left: -7px;
+          li {
+            padding: 0 7px;
+          }
+        }
+      }
+      & > div {
+        width: 33.33333%;
+        padding: 0 15px;
+      }
+      h4 {
+        font-size: 24px;
+        color: #fff;
+        margin-bottom: 0;
+        letter-spacing: 1px;
+      }
+    }
+  }
+}
+
+.profile-page {
+  background: #eee;
+  .tsscrollwrap {
+    position: relative;
+    overflow-y: auto;
+  }
+  .tsscrollcontent {
+    padding: 0;
+    min-height: 100%;
+    display: flex;
+    flex-direction: row;
+  }
+  .container {
+    //overflow-y: auto;
+    padding-top: 30px;
+    //margin-left: 30%;
+    padding-bottom: 25px;
+    min-width: 590px;
+  }
+  .profileWrap {
+    min-width: 300px;
+    overflow-y: auto;
+    padding: 30px 30px 25px;
+    //position: fixed;
+    //top: 90px;
+    //bottom: 125px;
+    width: 30%;
+  }
+
+}
+
+//.row {
+//  padding: 0 10px!important;
+//  margin: 0!important;
+//}

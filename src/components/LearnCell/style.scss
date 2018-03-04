@@ -1,0 +1,67 @@
+.tsLearnCell {
+  background: #FFFFFF;
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+  padding-bottom: 50px;
+  width: 100%;
+  max-width: 350px;
+  margin: 15px auto;
+  height: 96%;
+  .thumbWrap {
+    height: 160px;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin-bottom: 15px;
+  }
+  h4 {
+    font-size: 18px;
+    color: #222;
+    text-align: center;
+    width: 100%;
+    margin-bottom: 15px;
+    line-height: 1.5;
+    font-weight: 600;
+  }
+  .tsLearnGrid-desc {
+    padding: 0 25px;
+    margin-bottom: 20px;
+    text-align: center;
+    p {
+      color: #888888;
+      font-size: 12px;
+    }
+  }
+  .tsLearnGrid-btnwrap {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    text-align: center;
+    height: 50px;
+  }
+
+  .tsDefaultBtn {
+    margin: 0;
+    color: #fff;
+    padding: 0 36px;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 30px;
+    height: 30px;
+    background: none;
+    text-transform: capitalize;
+    background-image: -moz-linear-gradient(-44.718deg, rgb(48, 35, 174) 0%, rgb(200, 109, 215) 100%);
+    background-image: -webkit-linear-gradient(-44.718deg, rgb(48, 35, 174) 0%, rgb(200, 109, 215) 100%);
+    background-image: -ms-linear-gradient(-44.718deg, rgb(48, 35, 174) 0%, rgb(200, 109, 215) 100%);
+  }
+}
+.container .trow-header.not-found{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100%;
+}

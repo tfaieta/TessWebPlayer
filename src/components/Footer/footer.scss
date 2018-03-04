@@ -1,0 +1,78 @@
+.tsFooter {
+  height: 128px;
+  background-color: #f2f2f2;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-direction: row;
+  z-index: 5;
+  min-width: 980px;
+  .play-status {
+    height: 4px;
+    overflow: hidden;
+    background-color: #dddddd;
+    padding-left: 128px;
+    .md-slider-container {
+      .md-slider-thumb--mask {
+        display: none;
+      }
+      .md-slider-thumb {
+        display: none;
+      }
+      .md-slider-track {
+        margin: 0;
+        background: none;
+        height: 4px;
+        .md-slider-track-fill {
+          height: 100%;
+          background: none;
+          background-image: -moz-linear-gradient(-44.718deg, rgb(48, 35, 174) 0%, rgb(200, 109, 215) 100%);
+          background-image: -webkit-linear-gradient(-44.718deg, rgb(48, 35, 174) 0%, rgb(200, 109, 215) 100%);
+          background-image: -ms-linear-gradient(-44.718deg, rgb(48, 35, 174) 0%, rgb(200, 109, 215) 100%);
+        }
+      }
+    }
+  }
+  .player-wrap {
+    height: 100%;
+    display: flex;
+    flex: 1;
+    justify-content: space-between;
+  }
+  .rightControls{
+    width: 57%;
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+    align-items: center;
+    justify-content: space-between;
+    &>div{
+      padding: 0 15px;
+    }
+  }
+  .tsFavoriteWrap{
+    width: 35%;
+  }
+  .tsToolsWrap{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding-right: 25px!important;
+    .ftools{
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      color:#828393;
+      font-weight: 600;
+      margin: 0 0px 0 20px;
+    }
+    img{
+      height: 22px;
+      width: auto;
+      display: block;
+      margin-right: 5px;
+    }
+  }
+}

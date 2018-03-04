@@ -1,0 +1,20 @@
+.tsMainMenu {
+  .navbar-start{
+    display: flex;
+    flex:1;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .navbar-item{
+    color:#bbbccd;
+    font-size: 13px;
+    font-weight: 400;
+    text-transform: uppercase;
+    padding: 10px;
+    border-bottom: 3px solid transparent;
+    &.active,&:hover{
+      color:#5757ff;
+      border-bottom: 3px solid #5757ff;
+    }
+  }
+}

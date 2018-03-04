@@ -1,0 +1,18 @@
+
+<svg width="38px" height="34px" viewBox="0 0 38 34" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Browse" transform="translate(-1888.000000, -1395.000000)" fill="#BBBCCD">
+            <g id="Albums" transform="translate(-3.000000, -14.000000)">
+                <g id="main-kit" transform="translate(3.000000, 0.000000)">
+                    <g id="player" transform="translate(0.000000, 1301.000000)">
+                        <g id="Group" transform="translate(1888.000000, 107.000000)">
+                            <g id="Group-5" transform="translate(0.000000, 1.000000)">
+                                <path d="M1.63236487,33.8538309 C2.47917533,33.9502121 3.34373628,34 4.22222222,34 C8.12116209,34 11.7458066,33.0192748 14.761713,31.3371134 C16.1245457,31.5964031 17.5431241,31.7333333 19,31.7333333 C29.4934102,31.7333333 38,24.6295847 38,15.8666667 C38,7.10374864 29.4934102,0 19,0 C8.50658975,0 0,7.10374864 0,15.8666667 C0,21.1227462 3.06042578,25.7819045 7.77434967,28.6692334 C6.23582052,30.7691181 4.1289288,32.5470579 1.63236487,33.8538309 Z" id="chat"></path>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

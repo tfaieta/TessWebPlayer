@@ -1,0 +1,27 @@
+.tsAccountMenu {
+  .md-avatar {
+    border-radius: 0;
+    border: none;
+  }
+  .wrapProText{
+    display: flex;
+    flex:1;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: row;
+    >div{
+      margin-right: 60px;
+    }
+    .proName{
+      font-size: 13px;
+      color:#222;
+      font-weight: 600;
+    }
+    .viewLink{
+      font-size: 10px;
+      color:#888888;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+  }
+}

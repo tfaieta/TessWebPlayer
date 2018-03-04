@@ -1,0 +1,37 @@
+.tsInput {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 15px;
+  .tsInputText {
+    color: #bbbbbb
+  }
+  img{
+    width: 20px !important;
+    margin-bottom: 0px !important;
+    margin-top: 15px;
+    margin-right: 10px;
+  }
+  .md-text--secondary {
+    color: #bbbbbb;
+    font-weight: 600;
+  }
+  .md-divider {
+    height: 2px;
+  }
+  .md-text-field--search {
+    height: 23px !important;
+  }
+  .md-floating-label {
+    padding-left: 8px;
+  }
+  .md-text-field-divider-container{
+    margin-left: 13px!important;
+  }
+  input {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 13px;
+    color: #222;
+    padding-left: 8px;
+  }
+
+}
