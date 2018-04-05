@@ -13,9 +13,9 @@ export const AsideNav = (props) => {
             <div className="tsAside-wrap">
                 <div className="navWrap">
                     <div className="navbar-start">
-                        <NavLink exact className={"navbar-item"} to='/'><div className="imgWrap"><img src={listen} alt=""/></div><span>Listen Now</span></NavLink>
+                        <NavLink exact className={"navbar-item"} to='/'><div className="imgWrap"><img src={home} alt=""/></div><span>Home</span></NavLink>
                         <NavLink className={"navbar-item"} to='/browse'><div className="imgWrap"><img src={browse} alt=""/></div><span>Browse</span></NavLink>
-                        <NavLink className={"navbar-item"} to='/featured'><div className="imgWrap"><img src={featured} alt=""/></div><span>Featured</span></NavLink>
+                        <NavLink className={"navbar-item"} to='/featured'><div className="imgWrap"><img src={library} alt=""/></div><span>Library</span></NavLink>
                         <NavLink className={"navbar-item"} to='/tess-studio'><div className="imgWrap"><img src={tess} alt=""/></div><span>Tess Studios</span></NavLink>
                     </div>
                 </div>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="14px" height="14px" viewBox="0 0 14 14" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 49.2 (51160) - http://www.bohemiancoding.com/sketch -->
+    <title>home</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <path d="M5.93956766,0.379511955 C6.55846497,-0.126503985 7.44153503,-0.126503985 8.06043234,0.379511955 L13.0073332,4.424142 C13.6356344,4.93784667 14,5.71349741 14,6.53212897 L14,12.28619 C14,13.2287512 13.247575,14 12.3103448,14 L10.3793103,14 C9.44208017,14 8.68965517,13.2287512 8.68965517,12.28619 L8.68965517,11.4353811 C8.68965517,10.814892 8.2059036,10.3190381 7.61823268,10.3190381 L6.38176732,10.3190381 C5.7940964,10.3190381 5.31034483,10.814892 5.31034483,11.4353811 L5.31034483,12.28619 C5.31034483,13.2287512 4.55791983,14 3.62068966,14 L1.68965517,14 C0.752425002,14 0,13.2287512 0,12.28619 L0,6.53212897 C0,5.71349741 0.364365568,4.93784667 0.992666801,4.424142 L5.93956766,0.379511955 Z" id="path-1"></path>
+    </defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Icons/Home" transform="translate(-3.000000, -3.000000)">
+            <g id="icon" transform="translate(3.000000, 3.000000)">
+                <mask id="mask-2" fill="white">
+                    <use xlink:href="#path-1"></use>
+                </mask>
+                <use id="home" fill="#FFFFFF" xlink:href="#path-1"></use>
+                <g id="Colors/White" mask="url(#mask-2)" fill="#FFFFFF">
+                    <g transform="translate(-3.000000, -3.000000)">
+                        <polygon points="4.55935124e-13 2.00261628e-15 21 5.48360999e-14 21 21 4.26240801e-13 21"></polygon>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
