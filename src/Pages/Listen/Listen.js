@@ -21,7 +21,6 @@ export class Listen extends React.Component {
                                     </div>
                                 </div>
                                 <div className="row">
-
                                     {Array.from(Array(12)).map((_, i) => (
                                         <div key={i} className="col-xs-4 col-sm-4 col-md-3 col-lg-2">
                                             <Track menukey={i}/>
