@@ -2,19 +2,21 @@ import React from 'react'
 import {AsideNav} from '../../components/AsideNav/AsideNav'
 import {Header} from '../../components/Header/Header'
 import {Track} from '../../components/Track/Track'
+import {CatchUpWidget} from '../../components/CatchUpWidget/CatchUpWidget'
 
 export class Listen extends React.Component {
     render() {
         return (
             <div>
                 <Header/>
-
                 <div className="tcontent">
                     <AsideNav/>
                     <div className="tsscrollwrap">
                         <div className="tsscrollcontent">
-
                             <div className="container">
+                                <CatchUpWidget/>
+                                <div>
+                                </div>
                                 <div className="trow-header">
                                     <div className={"tsHeaderTitles"}>
                                         <h2>From People You Follow</h2>
