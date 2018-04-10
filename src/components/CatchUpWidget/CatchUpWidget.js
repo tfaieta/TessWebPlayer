@@ -1,18 +1,40 @@
-import React from 'react';
-import './style.scss'
-import { Card, CardTitle, CardText, Media, MediaOverlay } from 'react-md';
+import React from "react";
+import Slider from "react-slick";
+import "./style.scss";
 
-const cardStyle = { maxWidth: 1290};
-
-export const CatchUpWidget = (props) => (
-    <Card style={cardStyle} className="md-block-centered">
-        <CardTitle title="PodcastName" subtitle="By PodcastArtist"/>
-        <CardText>
-            <p>
-                Podcast Description
-            </p>
-        </CardText>
-    </Card>
-);
+export class CatchUpWidget extends React.Component {
+    render() {
+        var settings = {
+            dots: false,
+            infinite: true,
+            speed: 500,
+            slidesToShow: 1,
+            slidesToScroll: 1
+        };
+        return (
+            <Slider {...settings}>
+                <div className="container">
+                    <Slider {...settings}>
+                        <div>
+                            <img src="images/albmask.png"/>
+                        </div>
+                        <div>
+                            <img src="images/albmask.png"/>
+                        </div>
+                        <div>
+                            <img src="images/albmask.png"/>
+                        </div>
+                        <div>
+                            <img src="images/albmask.png"/>
+                        </div>
+                    </Slider>
+                </div>
+            </Slider>
+        );
+    }
+}
 
 export default CatchUpWidget;
+
+
+
