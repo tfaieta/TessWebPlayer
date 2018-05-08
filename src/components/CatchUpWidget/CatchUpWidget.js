@@ -1,35 +1,19 @@
 import React from "react";
-import Slider from "react-slick";
+import { Carousel } from 'antd';
 import "./style.scss";
 
 export class CatchUpWidget extends React.Component {
     render() {
-        var settings = {
-            dots: false,
-            infinite: true,
-            speed: 500,
-            slidesToShow: 1,
-            slidesToScroll: 1
-        };
         return (
-            <Slider {...settings}>
-                <div className="container">
-                    <Slider {...settings}>
-                        <div>
-                            <img src="images/albmask.png"/>
-                        </div>
-                        <div>
-                            <img src="images/albmask.png"/>
-                        </div>
-                        <div>
-                            <img src="images/albmask.png"/>
-                        </div>
-                        <div>
-                            <img src="images/albmask.png"/>
-                        </div>
-                    </Slider>
-                </div>
-            </Slider>
+            <div className={"tsHeaderTitles"}>
+                <h2>Tracked Podcasts</h2>
+                <Carousel dots="false"  autoplay>
+                    <div><h3>1</h3></div>
+                    <div><h3>2</h3></div>
+                    <div><h3>3</h3></div>
+                    <div><h3>4</h3></div>
+                </Carousel>
+            </div>
         );
     }
 }
