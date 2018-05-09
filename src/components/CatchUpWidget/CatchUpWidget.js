@@ -83,9 +83,4 @@ export class CatchUpWidget extends React.Component {
 
 export default CatchUpWidget;
 
-// Tabs I was on
-// https://ant.design/components/card/
-// https://ant.design/docs/react/getting-started
-// TODO: All notes are in the notebook
-
 
