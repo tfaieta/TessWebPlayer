@@ -11,7 +11,7 @@ export class WidgetCard extends React.Component {
                 <Card
                     style={{ width: 350 }}
                     cover={<img alt="example"
-                                src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png" />}
+                                src="../images/Back.png" />}
                     actions={[<Icon type="play-circle" />, <Icon type="plus" />, <Icon type="cloud-download" />]}
                 >
                     <Meta

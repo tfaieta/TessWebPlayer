@@ -1,15 +1,31 @@
 @import '../../../node_modules/antd/dist/antd.css';
 
-.ant-carousel .slick-slide {
-  text-align: center;
-  height: 400px;
-  line-height: 160px;
-  background: #EEEEEE;
-  overflow: hidden;
-  padding-top: 20px;
+.slick-slide img {
+  display: block;
+  margin: auto;
 }
-
-.ant-carousel .slick-slide h3 {
-  color: #3E4164;
-  text-align: center;
+.slick-slide img.slick-loading {
+  border: 0;
+}
+.slick-slider {
+  margin: 30px auto 50px;
+}
+.slick-dots {
+  margin-left: 0;
+}
+.slick-thumb {
+  bottom: -45px;
+}
+.slick-thumb li {
+  width: 60px;
+  height: 45px;
+}
+.slick-thumb li img {
+  filter: grayscale(100%);
+}
+.slick-thumb li.slick-active img {
+  filter: grayscale(0%);
+}
+.slick-vertical .slick-slide {
+  height: 180px;
 }

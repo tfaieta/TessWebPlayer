@@ -1,14 +1,20 @@
 import React from "react";
-import { Col, Row, Carousel } from 'antd';
+import { Col, Row } from 'antd';
+import Slider from "react-slick";
 import {WidgetCard} from '../../components/WidgetCard/WidgetCard'
 import "./style.scss";
 
 export class CatchUpWidget extends React.Component {
     render() {
+        var settings = {
+            dots: false,
+            centerMode: true
+
+        };
         return (
             <div className={"tsHeaderTitles"}>
                 <h2 >Tracked Podcasts</h2>
-                <Carousel dots="false">
+                <Slider {...settings}>
                     <div>
                         <div>
                             <Row gutter={16}>
@@ -69,7 +75,7 @@ export class CatchUpWidget extends React.Component {
                             </Row>
                         </div>
                     </div>
-                </Carousel>
+                </Slider>
             </div>
         );
     }
