@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="17px" height="15px" viewBox="0 0 17 15" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 49.2 (51160) - http://www.bohemiancoding.com/sketch -->
+    <title>lines</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <path d="M3.5,3 L17.5,3 C18.3284271,3 19,3.67157288 19,4.5 C19,5.32842712 18.3284271,6 17.5,6 L3.5,6 C2.67157288,6 2,5.32842712 2,4.5 C2,3.67157288 2.67157288,3 3.5,3 Z M3.5,9 L17.5,9 C18.3284271,9 19,9.67157288 19,10.5 C19,11.3284271 18.3284271,12 17.5,12 L3.5,12 C2.67157288,12 2,11.3284271 2,10.5 C2,9.67157288 2.67157288,9 3.5,9 Z M3.5,15 L17.5,15 C18.3284271,15 19,15.6715729 19,16.5 C19,17.3284271 18.3284271,18 17.5,18 L3.5,18 C2.67157288,18 2,17.3284271 2,16.5 C2,15.6715729 2.67157288,15 3.5,15 Z" id="path-1"></path>
+    </defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Icons/Lines" transform="translate(-2.000000, -3.000000)">
+            <g id="icon">
+                <mask id="mask-2" fill="white">
+                    <use xlink:href="#path-1"></use>
+                </mask>
+                <use id="lines" fill="#000000" xlink:href="#path-1"></use>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -49,8 +49,8 @@ html, body {
 
 @import '~react-md/src/scss/react-md';
 
-$md-primary-color: #5757FF;
-$md-secondary-color: #8e8ef5;
+$md-primary-color: #506DCF;
+$md-secondary-color: #3E4165;
 @include react-md-everything;
 
 // All the components will now be themed using teal and lime.
@@ -87,9 +87,7 @@ body {
   height: 45px;
   background: none;
   text-transform: capitalize;
-  background-image: -moz-linear-gradient(-44.718deg, rgb(48, 35, 174) 0%, rgb(200, 109, 215) 100%);
-  background-image: -webkit-linear-gradient(-44.718deg, rgb(48, 35, 174) 0%, rgb(200, 109, 215) 100%);
-  background-image: -ms-linear-gradient(-44.718deg, rgb(48, 35, 174) 0%, rgb(200, 109, 215) 100%);
+  background-color: #506DCF;
 }
 
 .grid-tess {
@@ -204,7 +202,9 @@ body {
     max-width: none;
     .uploadWrap {
       flex: 1;
-      background: url('../images/upload.png') center center no-repeat;
+      background-image: -moz-linear-gradient(-90deg, rgb(209,85,100) 0%, rgb(80,109,207) 100%);
+      background-image: -webkit-linear-gradient(-90deg, rgb(209,85,100) 0%, rgb(80,109,207) 100%);
+      background-image: -ms-linear-gradient(-90deg, rgb(209,85,100) 0%, rgb(80,109,207) 100%);
       background-size: cover;
       text-align: center;
       display: flex;

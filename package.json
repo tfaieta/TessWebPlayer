@@ -44,8 +44,11 @@
     "webpack-dev-server": "^2.5.1"
   },
   "dependencies": {
+    "antd": "^3.5.0",
     "react": "*",
     "react-dom": "*",
-    "react-md": "^1.2.11"
+    "react-md": "^1.2.11",
+    "react-slick": "^0.23.1",
+    "slick-carousel": "^1.8.1"
   }
 }
