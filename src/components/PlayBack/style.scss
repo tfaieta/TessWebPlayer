@@ -10,9 +10,7 @@
     border-radius: 12px;
     padding: 0 3px 0 6px;
     width: 162px;
-    background-image: -moz-linear-gradient(-44.718deg, rgb(48, 35, 174) 0%, rgb(200, 109, 215) 100%);
-    background-image: -webkit-linear-gradient(-44.718deg, rgb(48, 35, 174) 0%, rgb(200, 109, 215) 100%);
-    background-image: -ms-linear-gradient(-44.718deg, rgb(48, 35, 174) 0%, rgb(200, 109, 215) 100%);
+    background-color: rgb(80,109,207);
   }
   .md-slider-track-fill{
     height: 32px;
@@ -24,7 +22,7 @@
     height: 38px!important;
     width: 9px!important;
     background: #fff;
-    border: 2px solid #5757ff;
+    border: 2px solid #506DCF;
     transform: none!important;
     .md-slider-thumb--active{
       transform: none!important;

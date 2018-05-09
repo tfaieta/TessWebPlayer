@@ -9,7 +9,7 @@ export const MainMenu = (props) => {
             <nav className="navbar">
                 <div id="navMenuExample" className="navbar-menu">
                     <div className="navbar-start">
-                        <NavLink exact className={"navbar-item"} to='/'>Library</NavLink>
+                        <NavLink exact className={"navbar-item"} to='/'>Listen</NavLink>
                         <NavLink  className={"navbar-item"}
                                  to='/upload'>Upload</NavLink>
                         <NavLink  className={"navbar-item"}

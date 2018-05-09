@@ -12,9 +12,13 @@
     text-transform: uppercase;
     padding: 10px;
     border-bottom: 3px solid transparent;
+    letter-spacing: 2.5px;
     &.active,&:hover{
-      color:#5757ff;
-      border-bottom: 3px solid #5757ff;
+      color:#3E4165;
+      border-bottom: 3px solid #506DCF;
+      font-size: 13px;
+      letter-spacing: 2.5px;
+      font-weight: bold;
     }
   }
 }
