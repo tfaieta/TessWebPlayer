@@ -18,7 +18,7 @@ export const AsideNav = (props) => {
                         <NavLink exact className={"navbar-item"} to='/'><div className="imgWrap"><img src={browse} alt=""/></div><span>Home</span></NavLink>
                         <NavLink className={"navbar-item"} to='/browse'><div className="imgWrap"><img src={browse} alt=""/></div><span>Browse</span></NavLink>
                         <NavLink className={"navbar-item"} to='/featured'><div className="imgWrap"><img src={browse} alt=""/></div><span>Library</span></NavLink>
-                        <NavLink className={"navbar-item"} to='/tess-studio'><div className="imgWrap"><img src={tess} alt=""/></div><span>Tess Studios</span></NavLink>
+                        <NavLink className={"navbar-item"} to='/tess-studio'><div className="imgWrap"><img src={tess} alt=""/></div><span>Tess Media</span></NavLink>
                     </div>
                 </div>
 
