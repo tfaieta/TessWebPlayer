@@ -52,7 +52,7 @@ export class TessStudio extends React.Component {
                         setTimeout(() => {
                             let ep = {podcastTitle: podcast.val().podcastTitle, podcastArtist: podcast.val().podcastArtist, rss: podcast.val().rss, id: podcast.val().id, username: username, profileImage: profileImage};
                             bestIdeas.push(ep);
-                            }, 1000)
+                            }, 500)
                     }
                 })
             })
@@ -90,7 +90,7 @@ export class TessStudio extends React.Component {
                         setTimeout(() => {
                             let ep = {podcastTitle: podcast.val().podcastTitle, podcastArtist: podcast.val().podcastArtist, rss: podcast.val().rss, id: podcast.val().id, username: username, profileImage: profileImage};
                             bogw.push(ep);
-                        }, 1000)
+                        }, 500)
                     }
                 })
             })
@@ -128,13 +128,13 @@ export class TessStudio extends React.Component {
                         setTimeout(() => {
                             let ep = {podcastTitle: podcast.val().podcastTitle, podcastArtist: podcast.val().podcastArtist, id: podcast.val().id, username: username, profileImage: profileImage};
                             idk.push(ep);
-                        }, 1000)
+                        }, 500)
                     }
                 })
             })
         });
 
-        this.timeout1 = setTimeout(() => {this.setState({bestIdeas: bestIdeas, bogw: bogw, idk: idk})}, 2000);
+        this.timeout1 = setTimeout(() => {this.setState({bestIdeas: bestIdeas, bogw: bogw, idk: idk})}, 1000);
     }
 
     render() {

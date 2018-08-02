@@ -9,17 +9,20 @@ export const Profile = (props) => {
         <div className="tsProfile">
             <div>
                 <div className="profileImg">
-                    <img src={profile} alt="profile"/>
+                    <img src={props.profileInfo.profileImage} alt="profile"/>
                 </div>
-                <h4>Joe Shmo</h4>
-                <div className="specialisation">Things and other things.</div>
+                <h4>{props.profileInfo.username}</h4>
+                <div className="specialisation">{props.profileInfo.bio}</div>
             </div>
             <div className="info-wrap">
                 <div>
-                    Followers <span>10</span>
+                    Following <span>{props.userFollowing.length}</span>
                 </div>
                 <div>
-                    Following <span>10</span>
+                    Followers <span>{props.userFollowers.length}</span>
+                </div>
+                <div>
+                    Tracking <span>{props.userTrackingList.length}</span>
                 </div>
             </div>
         </div>

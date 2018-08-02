@@ -16,12 +16,82 @@ export class Profile extends React.Component {
         super(props);
 
         this.state = {
-            eps: []
+            eps: [],
+            profileInfo: {username: '', bio: '', profileImage: ''},
+            userFollowers: [],
+            userFollowing: [],
+            userTrackingList: []
         };
 
-        // get user's episodes
+
+        // get user's profile info
         // const {currentUser} = firebase.auth();       NEED TO BE LOGGED IN
         let currentUser = {uid: 'pgIx9JAiq9aQWcyUZX8AuIdqNmP2'}; // temporary
+        const refFol = firebase.database().ref(`users/${currentUser.uid}/followers`);
+        const refFollowing = firebase.database().ref(`users/${currentUser.uid}/following`);
+        const refTracking = firebase.database().ref(`users/${currentUser.uid}/tracking`);
+
+        let userFollowers = [];
+        let userFollowing = [];
+        let userTrackingList = [];
+
+        refFol.once("value", function (snapshot) {
+            snapshot.forEach(function (data) {
+                userFollowers.push(data.key);
+            })
+        });
+
+        refFollowing.once("value", function (snapshot) {
+            snapshot.forEach(function (data) {
+                userFollowing.push(data.key);
+            })
+        });
+
+        refTracking.once("value", function (snapshot) {
+            snapshot.forEach(function (data) {
+                userTrackingList.push(data.key);
+            })
+        });
+
+        let myUsername = '';
+        firebase.database().ref(`/users/${currentUser.uid}/username`).orderByChild("username").once("value", function(snap) {
+            if(snap.val()){
+                myUsername = snap.val().username;
+            }
+            else {
+                myUsername = '...';
+            }
+        });
+
+        let myBio = '';
+        firebase.database().ref(`/users/${currentUser.uid}/bio`).orderByChild("bio").once("value", function(snap) {
+            if(snap.val()){
+                    myBio = snap.val().bio;
+            }
+            else {
+                myBio = "Tell others about yourself";
+            }
+        });
+
+        let myProfileImage = '';
+            firebase.database().ref(`users/${currentUser.uid}/profileImage`).once("value", function (snapshot) {
+                if(snapshot.val()){
+                    myProfileImage = snapshot.val().profileImage;
+                }
+                else{
+                    const storageRef = firebase.storage().ref(`/users/${currentUser.uid}/image-profile-uploaded`);
+                    storageRef.getDownloadURL()
+                        .then(function(url) {
+                            myProfileImage = url;
+                        }).catch(function(error) {
+                        //
+                    });
+
+                }
+            });
+
+
+        // get user's episodes
         let eps = [];
         firebase.database().ref(`users/${currentUser.uid}/podcasts`).once("value", function (snap) {
             snap.forEach(function (data) {
@@ -53,13 +123,13 @@ export class Profile extends React.Component {
                         setTimeout(() => {
                             let ep = {podcastTitle: podcast.val().podcastTitle, podcastArtist: podcast.val().podcastArtist, id: podcast.val().id, username: username, profileImage: profileImage};
                             eps.push(ep);
-                        }, 1000)
+                        }, 500)
                     }
                 })
             })
         });
 
-        this.timeout1 = setTimeout(() => {this.setState({eps: eps})}, 2000);
+        this.timeout1 = setTimeout(() => {this.setState({eps: eps, profileInfo: {username: myUsername, bio: myBio, profileImage: myProfileImage}, userFollowers: userFollowers, userFollowing: userFollowing, userTrackingList: userTrackingList})}, 1000);
     }
 
     render() {
@@ -70,12 +140,12 @@ export class Profile extends React.Component {
                     <div className="tsscrollwrap">
                         <div className="tsscrollcontent">
                             <div className="profileWrap">
-                                <ProfileInfo/>
+                                <ProfileInfo profileInfo={this.state.profileInfo} userFollowers={this.state.userFollowers} userFollowing={this.state.userFollowing} userTrackingList={this.state.userTrackingList}/>
                             </div>
                             <div className="container">
                                 <div className="trow-header">
                                     <div className={"tsHeaderTitles"}>
-                                        <h2>My Episodes</h2>
+                                        <h2>{this.state.eps.length} Episodes</h2>
                                     </div>
                                 </div>
                                 <div className="row">
