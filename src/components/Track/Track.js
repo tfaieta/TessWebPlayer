@@ -8,22 +8,23 @@ export const Track = (props) => {
     return (
         <div className="tsTrack">
             <div className="wrapImg">
-                <img src={track} alt="track"/>
+                <img src={props.podcast.profileImage} alt="track"/>
             </div>
             <div className={"trackInfo"}>
                 <div>
-                    <a href={"#"} className="title" >Ep. 42 - 01/31/19Ep. 42 - 01/31/19Ep. 42 - 01/31/19</a>
-                    <a href={"#"} className="album">The Chillcast</a>
+                    <a href={"#"} className="title" >{props.podcast.podcastTitle}</a>
+                    <a href={"#"} className="album">{props.podcast.username}</a>
                 </div>
                 <MenuButton
                     id={"tscmenu"+ props.menukey}
                     className={"contextMenu"}
                     icon
                     menuItems={[
-                        <ListItem key={1} primaryText="Item One"/>,
-                        <ListItem key={2} primaryText="Item Two"/>,
-                        <ListItem key={3} primaryText="Item 3"/>,
-                        <ListItem key={4} primaryText="Item 4"/>,
+                        <ListItem key={1} primaryText="Share"/>,
+                        <ListItem key={2} primaryText="Add to Queue"/>,
+                        <ListItem key={3} primaryText="Add to Playlist"/>,
+                        <ListItem key={4} primaryText="Add to Favorites"/>,
+                        <ListItem key={5} primaryText="Go to Profile"/>,
                     ]}
 
                     anchor={{

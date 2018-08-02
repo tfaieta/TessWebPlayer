@@ -27,13 +27,39 @@ export class Profile extends React.Component {
             snap.forEach(function (data) {
                 firebase.database().ref(`podcasts/${data.val().id}`).once("value", function (podcast) {
                     if(podcast.val()){
-                        eps.push(podcast.val());
+                        let profileImage = '';
+                        if(podcast.val().rss){
+                            firebase.database().ref(`users/${podcast.val().podcastArtist}/profileImage`).once("value", function (image) {
+                                if(image.val().profileImage){
+                                    profileImage = image.val().profileImage;
+                                }
+                            })
+                        }
+                        else{
+                            const storageRef = firebase.storage().ref(`/users/${podcast.val().podcastArtist}/image-profile-uploaded`);
+                            storageRef.getDownloadURL()
+                                .then(function(url) {
+                                    profileImage = url;
+                                }).catch(function(error) {
+                                //
+                            });
+                        }
+                        let username = '';
+                        firebase.database().ref(`users/${podcast.val().podcastArtist}/username`).once("value", function (name) {
+                            if(name.val().username){
+                                username = name.val().username
+                            }
+                        });
+                        setTimeout(() => {
+                            let ep = {podcastTitle: podcast.val().podcastTitle, podcastArtist: podcast.val().podcastArtist, id: podcast.val().id, username: username, profileImage: profileImage};
+                            eps.push(ep);
+                        }, 1000)
                     }
                 })
             })
         });
 
-        this.timeout1 = setTimeout(() => {this.setState({eps: eps})}, 1000);
+        this.timeout1 = setTimeout(() => {this.setState({eps: eps})}, 2000);
     }
 
     render() {
@@ -55,7 +81,7 @@ export class Profile extends React.Component {
                                 <div className="row">
                                     {this.state.eps.map((_, i) => (
                                         <div key={i} className="col-xs-4 col-sm-4 col-md-4 col-lg-3">
-                                            <Track menukey={i}/>
+                                            <Track menukey={i} podcast={_}/>
                                         </div>
                                     ))}
                                 </div>

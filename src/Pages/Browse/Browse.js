@@ -24,10 +24,25 @@ export class Browse extends React.Component {
         // fetch new episodes
         let fresh = [];
         firebase.database().ref(`podcasts`).limitToLast(50).once("value", function (snapshot) {
-            snapshot.forEach(function (snap) {
-                if(snap.val()){
-                    if(snap.val().rss){
-                        fresh.push(snap.val())
+            snapshot.forEach(function (podcast) {
+                if(podcast.val()){
+                    if(podcast.val().rss){
+                        let profileImage = '';
+                        firebase.database().ref(`users/${podcast.val().podcastArtist}/profileImage`).once("value", function (image) {
+                            if(image.val().profileImage){
+                                profileImage = image.val().profileImage;
+                            }
+                        });
+                        let username = '';
+                        firebase.database().ref(`users/${podcast.val().podcastArtist}/username`).once("value", function (name) {
+                            if(name.val().username){
+                                username = name.val().username
+                            }
+                        });
+                        setTimeout(() => {
+                            let ep = {podcastTitle: podcast.val().podcastTitle, podcastArtist: podcast.val().podcastArtist, id: podcast.val().id, username: username, profileImage: profileImage};
+                            fresh.push(ep);
+                        }, 1000)
                     }
                 }
             });
@@ -37,14 +52,40 @@ export class Browse extends React.Component {
         let topCharts = [];
         const ref = firebase.database().ref(`podcasts/`);
         ref.limitToLast(500).once("value", function (snapshot) {
-            snapshot.forEach(function (data) {
-                if(data.child("plays").numChildren() > 0){
-                    topCharts.push(data.val());
-                    for(let i = topCharts.length-1; i > 0 && topCharts[i].plays.length > topCharts[i-1].plays.length; i--){
-                        let temp = topCharts[i-1];
-                        topCharts[i-1] = topCharts[i];
-                        topCharts[i] = temp;
+            snapshot.forEach(function (podcast) {
+                if(podcast.child("plays").numChildren() > 0){
+                    let profileImage = '';
+                    if(podcast.val().rss){
+                        firebase.database().ref(`users/${podcast.val().podcastArtist}/profileImage`).once("value", function (image) {
+                            if(image.val().profileImage){
+                                profileImage = image.val().profileImage;
+                            }
+                        })
                     }
+                    else{
+                        const storageRef = firebase.storage().ref(`/users/${podcast.val().podcastArtist}/image-profile-uploaded`);
+                        storageRef.getDownloadURL()
+                            .then(function(url) {
+                                profileImage = url;
+                            }).catch(function(error) {
+                            //
+                        });
+                    }
+                    let username = '';
+                    firebase.database().ref(`users/${podcast.val().podcastArtist}/username`).once("value", function (name) {
+                        if(name.val().username){
+                            username = name.val().username
+                        }
+                    });
+                    setTimeout(() => {
+                        let ep = {podcastTitle: podcast.val().podcastTitle, podcastArtist: podcast.val().podcastArtist, id: podcast.val().id, username: username, profileImage: profileImage};
+                        topCharts.push(ep);
+                        for(let i = topCharts.length-1; i > 0 && topCharts[i].plays.length > topCharts[i-1].plays.length; i--){
+                            let temp = topCharts[i-1];
+                            topCharts[i-1] = topCharts[i];
+                            topCharts[i] = temp;
+                        }
+                    }, 1000);
                 }
             })
         });
@@ -52,18 +93,35 @@ export class Browse extends React.Component {
         // get episodes from tess users
         let onTess = [];
         firebase.database().ref(`podcasts`).limitToLast(500).once("value", function (snapshot) {
-            snapshot.forEach(function (snap) {
-                if(snap.val()){
-                    if(snap.val().rss){
+            snapshot.forEach(function (podcast) {
+                if(podcast.val()){
+                    if(podcast.val().rss){
                     }
                     else{
-                        onTess.push(snap.val())
+                        let profileImage = '';
+                        const storageRef = firebase.storage().ref(`/users/${podcast.val().podcastArtist}/image-profile-uploaded`);
+                        storageRef.getDownloadURL()
+                            .then(function(url) {
+                                profileImage = url;
+                            }).catch(function(error) {
+                            //
+                        });
+                        let username = '';
+                        firebase.database().ref(`users/${podcast.val().podcastArtist}/username`).once("value", function (name) {
+                            if(name.val().username){
+                                username = name.val().username
+                            }
+                        });
+                        setTimeout(() => {
+                            let ep = {podcastTitle: podcast.val().podcastTitle, podcastArtist: podcast.val().podcastArtist, id: podcast.val().id, username: username, profileImage: profileImage};
+                            onTess.push(ep);
+                        }, 1000)
                     }
                 }
             });
         });
 
-        this.timeout1 = setTimeout(() => {this.setState({dataSourceFresh: fresh, dataSourceCharts: topCharts, onTess: onTess})}, 1000);
+        this.timeout1 = setTimeout(() => {this.setState({dataSourceFresh: fresh, dataSourceCharts: topCharts, onTess: onTess})}, 2000);
 
     }
 
@@ -87,7 +145,7 @@ export class Browse extends React.Component {
                                 <div className="row">
                                     {this.state.dataSourceCharts.map((_, i) => (
                                         <div key={i} className="col-xs-4 col-sm-4 col-md-3 col-lg-2">
-                                            <Track menukey={i} data = {_}/>
+                                            <Track menukey={i} podcast={_}/>
                                         </div>
                                     ))}
                                 </div>
@@ -103,7 +161,7 @@ export class Browse extends React.Component {
                                 <div className="row">
                                     {this.state.dataSourceFresh.map((_, i) => (
                                         <div key={i} className="col-xs-4 col-sm-4 col-md-3 col-lg-2">
-                                            <Track menukey={i} data = {_}/>
+                                            <Track menukey={i} podcast={_}/>
                                         </div>
                                     ))}
                                 </div>
@@ -119,7 +177,7 @@ export class Browse extends React.Component {
                                 <div className="row">
                                     {this.state.onTess.map((_, i) => (
                                         <div key={i} className="col-xs-4 col-sm-4 col-md-3 col-lg-2">
-                                            <Track menukey={i} data = {_}/>
+                                            <Track menukey={i} podcast={_}/>
                                         </div>
                                     ))}
                                 </div>

@@ -28,14 +28,40 @@ export class Listen extends React.Component {
             snapshot.forEach(function (data) {
                 firebase.database().ref(`users/${data.key}/podcasts`).limitToLast(3).once("value", function (snap) {
                     snap.forEach(function (pod) {
-                        firebase.database().ref(`podcasts/${pod.key}`).once("value", function (data2) {
-                            if(data2.val()){
-                                homeFollowedContent.push(data2.val());
-                                for(let i = homeFollowedContent.length-1; i > 0 && homeFollowedContent[i].id > homeFollowedContent[i-1].id; i--){
-                                    let temp = homeFollowedContent[i-1];
-                                    homeFollowedContent[i-1] = homeFollowedContent[i];
-                                    homeFollowedContent[i] = temp;
+                        firebase.database().ref(`podcasts/${pod.key}`).once("value", function (podcast) {
+                            if(podcast.val()){
+                                let profileImage = '';
+                                if(podcast.val().rss){
+                                    firebase.database().ref(`users/${podcast.val().podcastArtist}/profileImage`).once("value", function (image) {
+                                        if(image.val().profileImage){
+                                            profileImage = image.val().profileImage;
+                                        }
+                                    })
                                 }
+                                else{
+                                    const storageRef = firebase.storage().ref(`/users/${podcast.val().podcastArtist}/image-profile-uploaded`);
+                                    storageRef.getDownloadURL()
+                                        .then(function(url) {
+                                            profileImage = url;
+                                        }).catch(function(error) {
+                                        //
+                                    });
+                                }
+                                let username = '';
+                                firebase.database().ref(`users/${podcast.val().podcastArtist}/username`).once("value", function (name) {
+                                    if(name.val().username){
+                                        username = name.val().username
+                                    }
+                                });
+                                setTimeout(() => {
+                                    let ep = {podcastTitle: podcast.val().podcastTitle, podcastArtist: podcast.val().podcastArtist, id: podcast.val().id, username: username, profileImage: profileImage};
+                                    homeFollowedContent.push(ep);
+                                    for(let i = homeFollowedContent.length-1; i > 0 && homeFollowedContent[i].id > homeFollowedContent[i-1].id; i--){
+                                        let temp = homeFollowedContent[i-1];
+                                        homeFollowedContent[i-1] = homeFollowedContent[i];
+                                        homeFollowedContent[i] = temp;
+                                    }
+                                }, 1000);
                             }
                         })
                     });
@@ -43,7 +69,7 @@ export class Listen extends React.Component {
             })
         });
 
-        this.timeout1 = setTimeout(() => {this.setState({homeFollowedContent: homeFollowedContent, })}, 1000);
+        this.timeout1 = setTimeout(() => {this.setState({homeFollowedContent: homeFollowedContent, })}, 2000);
     }
     render() {
         return (
@@ -68,7 +94,7 @@ export class Listen extends React.Component {
 
                                     {this.state.homeFollowedContent.map((_, i) => (
                                         <div key={i} className="col-xs-4 col-sm-4 col-md-3 col-lg-2">
-                                            <Track menukey={i}/>
+                                            <Track menukey={i} podcast={_}/>
                                         </div>
                                     ))}
                                 </div>

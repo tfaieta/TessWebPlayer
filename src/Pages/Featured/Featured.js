@@ -7,17 +7,8 @@ import firebase from 'firebase';
 
 export class Featured extends React.Component {
 
-    componentWillUnmount(){
-        clearTimeout(this.timeout1);
-    }
-
     constructor(props){
         super(props);
-
-        this.state = {
-        };
-
-        this.timeout1 = setTimeout(() => {}, 1000);
     }
 
     render() {
@@ -35,26 +26,12 @@ export class Featured extends React.Component {
                                         <h2>Podcasts</h2>
                                     </div>
                                 </div>
-                                <div className="row">
-                                    {Array.from(Array(4)).map((_, i) => (
-                                        <div key={i} className="col-xs-4 col-sm-4 col-md-3 col-lg-2">
-                                            <Track menukey={i}/>
-                                        </div>
-                                    ))}
-                                </div>
                             </div>
                             <div className="container">
                                 <div className="trow-header">
                                     <div className={"tsHeaderTitles"}>
                                         <h2>Playlists</h2>
                                     </div>
-                                </div>
-                                <div className="row">
-                                    {Array.from(Array(4)).map((_, i) => (
-                                        <div key={i} className="col-xs-4 col-sm-4 col-md-3 col-lg-2">
-                                            <Track menukey={i}/>
-                                        </div>
-                                    ))}
                                 </div>
                             </div>
                             <div className="container">
@@ -63,13 +40,6 @@ export class Featured extends React.Component {
                                         <h2>Favorites</h2>
                                     </div>
                                 </div>
-                                <div className="row">
-                                    {Array.from(Array(4)).map((_, i) => (
-                                        <div key={i} className="col-xs-4 col-sm-4 col-md-3 col-lg-2">
-                                            <Track menukey={i}/>
-                                        </div>
-                                    ))}
-                                </div>
                             </div>
                             <div className="container">
                                 <div className="trow-header">
@@ -77,26 +47,12 @@ export class Featured extends React.Component {
                                         <h2>Highlights</h2>
                                     </div>
                                 </div>
-                                <div className="row">
-                                    {Array.from(Array(4)).map((_, i) => (
-                                        <div key={i} className="col-xs-4 col-sm-4 col-md-3 col-lg-2">
-                                            <Track menukey={i}/>
-                                        </div>
-                                    ))}
-                                </div>
                             </div>
                             <div className="container">
                                 <div className="trow-header">
                                     <div className={"tsHeaderTitles"}>
                                         <h2>History</h2>
                                     </div>
-                                </div>
-                                <div className="row">
-                                    {Array.from(Array(4)).map((_, i) => (
-                                        <div key={i} className="col-xs-4 col-sm-4 col-md-3 col-lg-2">
-                                            <Track menukey={i}/>
-                                        </div>
-                                    ))}
                                 </div>
                             </div>
                         </div>

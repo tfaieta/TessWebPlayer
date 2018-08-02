@@ -26,7 +26,33 @@ export class TessStudio extends React.Component {
             snap.forEach(function (data) {
                 firebase.database().ref(`podcasts/${data.val().id}`).once("value", function (podcast) {
                     if(podcast.val()){
-                        bestIdeas.push(podcast.val());
+                        let profileImage = '';
+                        if(podcast.val().rss){
+                            firebase.database().ref(`users/${podcast.val().podcastArtist}/profileImage`).once("value", function (image) {
+                                if(image.val().profileImage){
+                                    profileImage = image.val().profileImage;
+                                }
+                            })
+                        }
+                        else{
+                            const storageRef = firebase.storage().ref(`/users/${podcast.val().podcastArtist}/image-profile-uploaded`);
+                            storageRef.getDownloadURL()
+                                .then(function(url) {
+                                    profileImage = url;
+                                }).catch(function(error) {
+                                //
+                            });
+                        }
+                        let username = '';
+                        firebase.database().ref(`users/${podcast.val().podcastArtist}/username`).once("value", function (name) {
+                            if(name.val().username){
+                                username = name.val().username
+                            }
+                        });
+                        setTimeout(() => {
+                            let ep = {podcastTitle: podcast.val().podcastTitle, podcastArtist: podcast.val().podcastArtist, rss: podcast.val().rss, id: podcast.val().id, username: username, profileImage: profileImage};
+                            bestIdeas.push(ep);
+                            }, 1000)
                     }
                 })
             })
@@ -38,7 +64,33 @@ export class TessStudio extends React.Component {
             snap.forEach(function (data) {
                 firebase.database().ref(`podcasts/${data.val().id}`).once("value", function (podcast) {
                     if(podcast.val()){
-                        bogw.push(podcast.val());
+                        let profileImage = '';
+                        if(podcast.val().rss){
+                            firebase.database().ref(`users/${podcast.val().podcastArtist}/profileImage`).once("value", function (image) {
+                                if(image.val().profileImage){
+                                    profileImage = image.val().profileImage;
+                                }
+                            })
+                        }
+                        else{
+                            const storageRef = firebase.storage().ref(`/users/${podcast.val().podcastArtist}/image-profile-uploaded`);
+                            storageRef.getDownloadURL()
+                                .then(function(url) {
+                                    profileImage = url;
+                                }).catch(function(error) {
+                                //
+                            });
+                        }
+                        let username = '';
+                        firebase.database().ref(`users/${podcast.val().podcastArtist}/username`).once("value", function (name) {
+                            if(name.val().username){
+                                username = name.val().username
+                            }
+                        });
+                        setTimeout(() => {
+                            let ep = {podcastTitle: podcast.val().podcastTitle, podcastArtist: podcast.val().podcastArtist, rss: podcast.val().rss, id: podcast.val().id, username: username, profileImage: profileImage};
+                            bogw.push(ep);
+                        }, 1000)
                     }
                 })
             })
@@ -50,14 +102,39 @@ export class TessStudio extends React.Component {
             snap.forEach(function (data) {
                 firebase.database().ref(`podcasts/${data.val().id}`).once("value", function (podcast) {
                     if(podcast.val()){
-                        idk.push(podcast.val());
+                        let profileImage = '';
+                        if(podcast.val().rss){
+                            firebase.database().ref(`users/${podcast.val().podcastArtist}/profileImage`).once("value", function (image) {
+                                if(image.val().profileImage){
+                                    profileImage = image.val().profileImage;
+                                }
+                            })
+                        }
+                        else{
+                            const storageRef = firebase.storage().ref(`/users/${podcast.val().podcastArtist}/image-profile-uploaded`);
+                            storageRef.getDownloadURL()
+                                .then(function(url) {
+                                    profileImage = url;
+                                }).catch(function(error) {
+                                //
+                            });
+                        }
+                        let username = '';
+                        firebase.database().ref(`users/${podcast.val().podcastArtist}/username`).once("value", function (name) {
+                            if(name.val().username){
+                                username = name.val().username
+                            }
+                        });
+                        setTimeout(() => {
+                            let ep = {podcastTitle: podcast.val().podcastTitle, podcastArtist: podcast.val().podcastArtist, id: podcast.val().id, username: username, profileImage: profileImage};
+                            idk.push(ep);
+                        }, 1000)
                     }
                 })
             })
         });
 
-
-        this.timeout1 = setTimeout(() => {this.setState({bestIdeas: bestIdeas, bogw: bogw, idk: idk})}, 1000);
+        this.timeout1 = setTimeout(() => {this.setState({bestIdeas: bestIdeas, bogw: bogw, idk: idk})}, 2000);
     }
 
     render() {
@@ -79,7 +156,7 @@ export class TessStudio extends React.Component {
                                 <div className="row">
                                     {this.state.bestIdeas.map((_, i) => (
                                         <div key={i} className="col-xs-4 col-sm-4 col-md-3 col-lg-2">
-                                            <Track menukey={i}/>
+                                            <Track menukey={i} podcast={_}/>
                                         </div>
                                     ))}
                                 </div>
@@ -94,7 +171,7 @@ export class TessStudio extends React.Component {
                                 <div className="row">
                                     {this.state.bogw.map((_, i) => (
                                         <div key={i} className="col-xs-4 col-sm-4 col-md-3 col-lg-2">
-                                            <Track menukey={i}/>
+                                            <Track menukey={i} podcast={_}/>
                                         </div>
                                     ))}
                                 </div>
@@ -109,7 +186,7 @@ export class TessStudio extends React.Component {
                                 <div className="row">
                                     {this.state.idk.map((_, i) => (
                                         <div key={i} className="col-xs-4 col-sm-4 col-md-3 col-lg-2">
-                                            <Track menukey={i}/>
+                                            <Track menukey={i} podcast={_}/>
                                         </div>
                                     ))}
                                 </div>
