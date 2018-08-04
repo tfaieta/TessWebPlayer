@@ -32,3 +32,10 @@ export function setPlayStatus (text) {
         status: text
     }
 }
+
+export function setPlayBackRate (text) {
+    return {
+        type: "SET_PLAYBACKRATE",
+        rate: text
+    }
+}

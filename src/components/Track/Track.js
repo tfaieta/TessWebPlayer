@@ -5,7 +5,7 @@ import track from '../../images/track.png';
 import {MenuButton, ListItem,} from 'react-md';
 import Button from "antd/es/button/button";
 import { store } from "../../store";
-import { setPodcast } from "../../actions";
+import { setPodcast, setPlayStatus } from "../../actions";
 
 export const Track = (props) => {
     return (
@@ -26,6 +26,13 @@ export const Track = (props) => {
                         console.log(props.podcast.podcastURL);
                         const {podcast} = props;
                         store.dispatch(setPodcast(podcast));
+                        const playStatus = store.getState().player.playStatus;
+                        if(playStatus == 'PAUSED'){
+                            store.dispatch(setPlayStatus('PLAYING'));
+                        }
+                        else if(playStatus == 'STOPPED'){
+                            store.dispatch(setPlayStatus('PLAYING'));
+                        }
                     }}/>
                 </div>
                 <MenuButton

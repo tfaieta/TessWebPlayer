@@ -16,7 +16,7 @@ export const PlayerControls = (props) => {
                 url={store.getState().podcast.podcastURL}
                 playStatus={store.getState().player.playStatus}
                 volume={100}
-                playbackRate={1}
+                playbackRate={store.getState().player.playBackRate}
                 autoLoad={true}
                 {...props} />
             <Button icon className={"ctrBtn"}  swapTheming><img src={replay}/></Button>

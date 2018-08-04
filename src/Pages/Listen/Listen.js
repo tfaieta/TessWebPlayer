@@ -26,7 +26,7 @@ export class Listen extends React.Component {
         const refFol = firebase.database().ref(`users/${currentUser.uid}/following`);
         refFol.once("value", function (snapshot) {
             snapshot.forEach(function (data) {
-                firebase.database().ref(`users/${data.key}/podcasts`).limitToLast(3).once("value", function (snap) {
+                firebase.database().ref(`users/${data.key}/podcasts`).limitToLast(4).once("value", function (snap) {
                     snap.forEach(function (pod) {
                         firebase.database().ref(`podcasts/${pod.key}`).once("value", function (podcast) {
                             if(podcast.val()){
