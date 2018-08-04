@@ -7,7 +7,6 @@ import Button from "antd/es/button/button";
 import { store } from "../../store";
 import { setPodcast } from "../../actions";
 
-
 export const Track = (props) => {
     return (
         <div className="tsTrack">
@@ -24,6 +23,7 @@ export const Track = (props) => {
                         console.log(props.podcast.id);
                         console.log(props.podcast.username);
                         console.log(props.podcast.profileImage);
+                        console.log(props.podcast.podcastURL);
                         const {podcast} = props;
                         store.dispatch(setPodcast(podcast));
                     }}/>
@@ -52,6 +52,5 @@ export const Track = (props) => {
         </div>
     )
 };
-
 
 Track.propTypes = {}

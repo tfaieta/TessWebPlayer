@@ -25,3 +25,10 @@ export function setProfileImage (text) {
         info: text
     }
 }
+
+export function setPlayStatus (text) {
+    return {
+        type: "SET_PLAYSTATUS",
+        status: text
+    }
+}

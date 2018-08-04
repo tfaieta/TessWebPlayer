@@ -24,6 +24,12 @@ export default (state, action) => {
                 myProfileImage: action.info
             };
 
+        case "SET_PLAYSTATUS":
+            return {
+                ...state,
+                player: {playStatus: action.status}
+            };
+
         default:
             return state;
     }

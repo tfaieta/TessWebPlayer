@@ -59,12 +59,14 @@ export class Profile extends React.Component {
                 firebase.database().ref(`podcasts/${data.val().id}`).once("value", function (podcast) {
                     if(podcast.val()){
                         let profileImage = '';
+                        let podcastURL = '';
                         if(podcast.val().rss){
                             firebase.database().ref(`users/${podcast.val().podcastArtist}/profileImage`).once("value", function (image) {
                                 if(image.val().profileImage){
                                     profileImage = image.val().profileImage;
                                 }
-                            })
+                            });
+                            podcastURL = podcast.val().podcastURL;
                         }
                         else{
                             const storageRef = firebase.storage().ref(`/users/${podcast.val().podcastArtist}/image-profile-uploaded`);
@@ -74,6 +76,10 @@ export class Profile extends React.Component {
                                 }).catch(function(error) {
                                 //
                             });
+                            firebase.storage().ref(`/users/${podcast.val().podcastArtist}/${podcast.val().id}`).getDownloadURL().catch(() => {console.log("file not found")})
+                                .then(function(url){
+                                    podcastURL = url;
+                                });
                         }
                         let username = '';
                         firebase.database().ref(`users/${podcast.val().podcastArtist}/username`).once("value", function (name) {
@@ -82,7 +88,7 @@ export class Profile extends React.Component {
                             }
                         });
                         setTimeout(() => {
-                            let ep = {podcastTitle: podcast.val().podcastTitle, podcastArtist: podcast.val().podcastArtist, id: podcast.val().id, username: username, profileImage: profileImage};
+                            let ep = {podcastTitle: podcast.val().podcastTitle, podcastArtist: podcast.val().podcastArtist, id: podcast.val().id, username: username, profileImage: profileImage, podcastURL: podcastURL};
                             eps.push(ep);
                         }, 1000)
                     }
