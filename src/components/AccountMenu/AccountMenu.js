@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import './style.scss'
 import thumb from '../../images/thumbplayer.png';
+import { store } from "../../store";
 
 import {
     Avatar,
@@ -40,14 +41,14 @@ const AccountMenu = ({simplifiedMenu}) => (
             label={
                 <div className={"wrapProText"}>
                     <div>
-                        <span className={"proName"}>Joe Shmo</span>
+                        <span className={"proName"}>{store.getState().myUsername}</span>
                         <div className={"viewLink"}>View profile</div>
                     </div>
                     <FontIcon>arrow_drop_down</FontIcon>
                 </div>
             }
         >
-            <Avatar src={thumb}></Avatar>
+            <Avatar src={store.getState().myProfileImage}></Avatar>
         </AccessibleFakeButton>
     </DropdownMenu>
 );
