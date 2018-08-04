@@ -123,13 +123,13 @@ export class Profile extends React.Component {
                         setTimeout(() => {
                             let ep = {podcastTitle: podcast.val().podcastTitle, podcastArtist: podcast.val().podcastArtist, id: podcast.val().id, username: username, profileImage: profileImage};
                             eps.push(ep);
-                        }, 500)
+                        }, 1000)
                     }
                 })
             })
         });
 
-        this.timeout1 = setTimeout(() => {this.setState({eps: eps, profileInfo: {username: myUsername, bio: myBio, profileImage: myProfileImage}, userFollowers: userFollowers, userFollowing: userFollowing, userTrackingList: userTrackingList})}, 1000);
+        this.timeout1 = setTimeout(() => {this.setState({eps: eps, profileInfo: {username: myUsername, bio: myBio, profileImage: myProfileImage}, userFollowers: userFollowers, userFollowing: userFollowing, userTrackingList: userTrackingList})}, 2000);
     }
 
     render() {

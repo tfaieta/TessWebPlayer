@@ -9,7 +9,7 @@ import {
     Cell
 } from 'react-md';
 import firebase from 'firebase';
-
+import { store } from "./store";
 
 const config = {
     apiKey: 'AIzaSyCMCsGc-foyjeiknZt9Nw5Sh8NrC2azZUg',
@@ -27,12 +27,14 @@ class App extends React.Component {
     render() {
         return (
             <div className="grid-tess">
-                <Routes/>
-                <Footer/>
+                <Routes podcast={store.getState().podcast}/>
+                <Footer podcast={store.getState().podcast}/>
             </div>
         )
     }
 }
 
-ReactDOM.render(<App/>, app)
+const render = () => ReactDOM.render(<App />, app);
+render();
+store.subscribe(render);
 module.hot.accept();

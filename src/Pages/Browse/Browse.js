@@ -42,7 +42,7 @@ export class Browse extends React.Component {
                         setTimeout(() => {
                             let ep = {podcastTitle: podcast.val().podcastTitle, podcastArtist: podcast.val().podcastArtist, id: podcast.val().id, username: username, profileImage: profileImage};
                             fresh.push(ep);
-                        }, 500)
+                        }, 1000)
                     }
                 }
             });
@@ -85,7 +85,7 @@ export class Browse extends React.Component {
                             topCharts[i-1] = topCharts[i];
                             topCharts[i] = temp;
                         }
-                    }, 500);
+                    }, 1000);
                 }
             })
         });
@@ -115,13 +115,13 @@ export class Browse extends React.Component {
                         setTimeout(() => {
                             let ep = {podcastTitle: podcast.val().podcastTitle, podcastArtist: podcast.val().podcastArtist, id: podcast.val().id, username: username, profileImage: profileImage};
                             onTess.push(ep);
-                        }, 500)
+                        }, 1000)
                     }
                 }
             });
         });
 
-        this.timeout1 = setTimeout(() => {this.setState({dataSourceFresh: fresh, dataSourceCharts: topCharts, onTess: onTess})}, 1000);
+        this.timeout1 = setTimeout(() => {this.setState({dataSourceFresh: fresh, dataSourceCharts: topCharts, onTess: onTess})}, 2000);
 
     }
 

@@ -3,6 +3,10 @@ import PropTypes from 'prop-types'
 import './style.scss'
 import track from '../../images/track.png';
 import {MenuButton, ListItem,} from 'react-md';
+import Button from "antd/es/button/button";
+import { store } from "../../store";
+import { setPodcast } from "../../actions";
+
 
 export const Track = (props) => {
     return (
@@ -14,6 +18,15 @@ export const Track = (props) => {
                 <div>
                     <a href={"#"} className="title" >{props.podcast.podcastTitle}</a>
                     <a href={"#"} className="album">{props.podcast.username}</a>
+                    <Button data-podcast={props.podcast} onClick={() => {
+                        console.log(props.podcast.podcastTitle);
+                        console.log(props.podcast.podcastArtist);
+                        console.log(props.podcast.id);
+                        console.log(props.podcast.username);
+                        console.log(props.podcast.profileImage);
+                        const {podcast} = props;
+                        store.dispatch(setPodcast(podcast));
+                    }}/>
                 </div>
                 <MenuButton
                     id={"tscmenu"+ props.menukey}
@@ -38,5 +51,7 @@ export const Track = (props) => {
             </div>
         </div>
     )
-}
+};
+
+
 Track.propTypes = {}
