@@ -7,13 +7,18 @@ import {PlayerControls} from '../PlayerControls/PlayerControls';
 import {PlayInfo} from '../PlayInfo/PlayInfo';
 import smile from './icons/smile.svg';
 import comment from './icons/comment.svg';
+import { store } from "../../store";
+import {setCurrentTime} from "../../actions/index";
 
 export const Footer = (props) => {
     return (
         <div className="tsFooter">
             <div className="trow-column">
                 <div className="play-status">
-                    <Slider id="continuous-plain-slider" defaultValue={60}/>
+                    <Slider id="continuous-plain-slider" max={store.getState().player.duration.toFixed(0)} min={0} step={1} defaultValue={0} value={store.getState().player.currentTime.toFixed(0)} onChange={(value) => {
+                        console.log(value);
+                        store.dispatch(setCurrentTime(value));
+                    }}/>
                 </div>
                 <div className="player-wrap">
 

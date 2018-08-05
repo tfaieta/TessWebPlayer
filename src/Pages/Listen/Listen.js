@@ -75,7 +75,7 @@ export class Listen extends React.Component {
             })
         });
 
-        this.timeout1 = setTimeout(() => {this.setState({homeFollowedContent: homeFollowedContent, })}, 2000);
+        this.timeout1 = setTimeout(() => {this.setState({homeFollowedContent: homeFollowedContent, })}, 3000);
     }
     render() {
         return (

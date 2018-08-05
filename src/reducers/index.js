@@ -27,13 +27,25 @@ export default (state, action) => {
         case "SET_PLAYSTATUS":
             return {
                 ...state,
-                player: {playStatus: action.status, playBackRate: state.player.playBackRate}
+                player: {playStatus: action.status, playBackRate: state.player.playBackRate, currentTime: state.player.currentTime, duration: state.player.duration}
             };
 
         case "SET_PLAYBACKRATE":
             return {
                 ...state,
-                player: {playBackRate: action.rate, playStatus: state.player.playStatus}
+                player: {playBackRate: action.rate, playStatus: state.player.playStatus, currentTime: state.player.currentTime, duration: state.player.duration}
+            };
+
+        case "SET_CURRENTTIME":
+            return {
+                ...state,
+                player: { currentTime: action.time, playBackRate: state.player.playBackRate, playStatus: state.player.playStatus, duration: state.player.duration}
+            };
+
+        case "SET_DURATION":
+            return {
+                ...state,
+                player: { duration: action.time, currentTime: state.player.currentTime, playBackRate: state.player.playBackRate, playStatus: state.player.playStatus}
             };
 
         default:

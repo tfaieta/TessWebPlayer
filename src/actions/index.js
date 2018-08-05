@@ -39,3 +39,17 @@ export function setPlayBackRate (text) {
         rate: text
     }
 }
+
+export function setCurrentTime (text) {
+    return {
+        type: "SET_CURRENTTIME",
+        time: text
+    }
+}
+
+export function setDuration (text) {
+    return {
+        type: "SET_DURATION",
+        time: text
+    }
+}

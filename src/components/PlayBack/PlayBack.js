@@ -9,7 +9,7 @@ export const PlayBack = (props) => {
     return (
         <div className="tsPlayBack">
             <div className={"tsLabel"}>Playback Speed</div>
-            <Slider id="continuous-plain-slider" rightIcon={null}  max={2} min={0.5} step={0.1} defaultValue={1} onChange={(value) => {
+            <Slider id="continuous-plain-slider" rightIcon={null} max={2} min={0.5} step={0.1} defaultValue={1} onChange={(value) => {
                 console.log(value);
                 store.dispatch(setPlayBackRate(value));
             }}/>

@@ -6,34 +6,31 @@ import {MenuButton, ListItem,} from 'react-md';
 import Button from "antd/es/button/button";
 import { store } from "../../store";
 import { setPodcast, setPlayStatus } from "../../actions";
+import {setCurrentTime} from "../../actions/index";
 
 export const Track = (props) => {
     return (
         <div className="tsTrack">
             <div className="wrapImg">
-                <img src={props.podcast.profileImage} alt="track"/>
+                <a>
+                <img src={props.podcast.profileImage} alt="track" onClick={() => {
+                    console.log(props.podcast.podcastTitle);
+                    console.log(props.podcast.podcastArtist);
+                    console.log(props.podcast.id);
+                    console.log(props.podcast.username);
+                    console.log(props.podcast.profileImage);
+                    console.log(props.podcast.podcastURL);
+                    const {podcast} = props;
+                    store.dispatch(setPlayStatus('STOPPED'));
+                    store.dispatch(setCurrentTime(0));
+                    store.dispatch(setPodcast(podcast));
+                }}/>
+                </a>
             </div>
             <div className={"trackInfo"}>
                 <div>
                     <a href={"#"} className="title" >{props.podcast.podcastTitle}</a>
                     <a href={"#"} className="album">{props.podcast.username}</a>
-                    <Button data-podcast={props.podcast} onClick={() => {
-                        console.log(props.podcast.podcastTitle);
-                        console.log(props.podcast.podcastArtist);
-                        console.log(props.podcast.id);
-                        console.log(props.podcast.username);
-                        console.log(props.podcast.profileImage);
-                        console.log(props.podcast.podcastURL);
-                        const {podcast} = props;
-                        store.dispatch(setPodcast(podcast));
-                        const playStatus = store.getState().player.playStatus;
-                        if(playStatus == 'PAUSED'){
-                            store.dispatch(setPlayStatus('PLAYING'));
-                        }
-                        else if(playStatus == 'STOPPED'){
-                            store.dispatch(setPlayStatus('PLAYING'));
-                        }
-                    }}/>
                 </div>
                 <MenuButton
                     id={"tscmenu"+ props.menukey}
