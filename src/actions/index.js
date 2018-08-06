@@ -53,3 +53,10 @@ export function setDuration (text) {
         time: text
     }
 }
+
+export function setVolume (text) {
+    return {
+        type: "SET_VOLUME",
+        volume: text
+    }
+}

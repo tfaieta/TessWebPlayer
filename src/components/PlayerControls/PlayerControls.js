@@ -17,7 +17,7 @@ export const PlayerControls = (props) => {
             <Sound
                 url={store.getState().podcast.podcastURL}
                 playStatus={store.getState().player.playStatus}
-                volume={100}
+                volume={store.getState().player.volume}
                 playbackRate={store.getState().player.playBackRate}
                 autoLoad={true}
                 position={store.getState().player.currentTime}

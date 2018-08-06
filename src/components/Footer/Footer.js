@@ -8,7 +8,7 @@ import {PlayInfo} from '../PlayInfo/PlayInfo';
 import smile from './icons/smile.svg';
 import comment from './icons/comment.svg';
 import { store } from "../../store";
-import {setCurrentTime} from "../../actions/index";
+import {setCurrentTime, setVolume} from "../../actions/index";
 
 export const Footer = (props) => {
     return (
@@ -32,14 +32,12 @@ export const Footer = (props) => {
                         <div className="tsPlaybackWrap">
                             <PlayBack/>
                         </div>
-                        <div className="tsToolsWrap">
-                            <a href={"#"} className="ftools smile-wrap">
-                                <img src={smile} alt="likes"/> <span>131</span>
-                            </a>
-
-                            <a href={"#"} className="ftools comment-wrap">
-                                <img src={comment} alt=""/><span>01</span>
-                            </a>
+                        <div className="tsVolume">
+                            <div className={"tsLabel"}>Volume</div>
+                            <Slider id="continuous-plain-slider" max={100} min={0} step={1} defaultValue={store.getState().player.volume} onChange={(value) => {
+                                console.log(value);
+                                store.dispatch(setVolume(value));
+                            }}/>
                         </div>
                     </div>
                 </div>
