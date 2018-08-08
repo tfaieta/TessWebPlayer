@@ -32,6 +32,14 @@ export class Listen extends React.Component {
                             if(podcast.val()){
                                 let profileImage = '';
                                 let podcastURL = '';
+                                let favorited = false;
+                                if(currentUser){
+                                    firebase.database().ref(`users/${currentUser.uid}/favorites/${podcast.val().id}`).once('value', function (fav) {
+                                        if(fav.val()){
+                                            favorited = true;
+                                        }
+                                    })
+                                }
                                 if(podcast.val().rss){
                                     firebase.database().ref(`users/${podcast.val().podcastArtist}/profileImage`).once("value", function (image) {
                                         if(image.val().profileImage){
@@ -60,7 +68,7 @@ export class Listen extends React.Component {
                                     }
                                 });
                                 setTimeout(() => {
-                                    let ep = {podcastTitle: podcast.val().podcastTitle, podcastArtist: podcast.val().podcastArtist, id: podcast.val().id, username: username, profileImage: profileImage, podcastURL: podcastURL};
+                                    let ep = {podcastTitle: podcast.val().podcastTitle, podcastArtist: podcast.val().podcastArtist, id: podcast.val().id, username: username, profileImage: profileImage, podcastURL: podcastURL, favorited: favorited};
                                     homeFollowedContent.push(ep);
                                     for(let i = homeFollowedContent.length-1; i > 0 && homeFollowedContent[i].id > homeFollowedContent[i-1].id; i--){
                                         let temp = homeFollowedContent[i-1];
@@ -88,9 +96,6 @@ export class Listen extends React.Component {
                         <div className="tsscrollcontent">
 
                             <div className="container">
-                                <CatchUpWidget/>
-                                <div>
-                                </div>
                                 <div className="trow-header">
                                     <div className={"tsHeaderTitles"}>
                                         <h2>From People You Follow</h2>

@@ -20,6 +20,7 @@ export const Track = (props) => {
                     console.log(props.podcast.username);
                     console.log(props.podcast.profileImage);
                     console.log(props.podcast.podcastURL);
+                    console.log(props.podcast.favorited);
                     const {podcast} = props;
                     store.dispatch(setPlayStatus('STOPPED'));
                     store.dispatch(setCurrentTime(0));
@@ -38,10 +39,11 @@ export const Track = (props) => {
                     icon
                     menuItems={[
                         <ListItem key={1} primaryText="Share"/>,
-                        <ListItem key={2} primaryText="Add to Queue"/>,
-                        <ListItem key={3} primaryText="Add to Playlist"/>,
-                        <ListItem key={4} primaryText="Add to Favorites"/>,
-                        <ListItem key={5} primaryText="Go to Profile"/>,
+                        <ListItem key={2} primaryText="Episode Info"/>,
+                        <ListItem key={3} primaryText="Add to Queue"/>,
+                        <ListItem key={4} primaryText="Add to Playlist"/>,
+                        <ListItem key={5} primaryText="Add to Favorites"/>,
+                        <ListItem key={6} primaryText="Go to Profile"/>,
                     ]}
 
                     anchor={{

@@ -60,6 +60,14 @@ export class Profile extends React.Component {
                     if(podcast.val()){
                         let profileImage = '';
                         let podcastURL = '';
+                        let favorited = false;
+                        if(currentUser){
+                            firebase.database().ref(`users/${currentUser.uid}/favorites/${podcast.val().id}`).once('value', function (fav) {
+                                if(fav.val()){
+                                    favorited = true;
+                                }
+                            })
+                        }
                         if(podcast.val().rss){
                             firebase.database().ref(`users/${podcast.val().podcastArtist}/profileImage`).once("value", function (image) {
                                 if(image.val().profileImage){
@@ -88,7 +96,7 @@ export class Profile extends React.Component {
                             }
                         });
                         setTimeout(() => {
-                            let ep = {podcastTitle: podcast.val().podcastTitle, podcastArtist: podcast.val().podcastArtist, id: podcast.val().id, username: username, profileImage: profileImage, podcastURL: podcastURL};
+                            let ep = {podcastTitle: podcast.val().podcastTitle, podcastArtist: podcast.val().podcastArtist, id: podcast.val().id, username: username, profileImage: profileImage, podcastURL: podcastURL, favorited: favorited};
                             eps.push(ep);
                         }, 1000)
                     }

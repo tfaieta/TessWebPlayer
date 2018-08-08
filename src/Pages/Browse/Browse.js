@@ -21,6 +21,9 @@ export class Browse extends React.Component {
             onTess: [],
         };
 
+        // const {currentUser} = firebase.auth();       NEED TO BE LOGGED IN
+        let currentUser = {uid: 'pgIx9JAiq9aQWcyUZX8AuIdqNmP2'}; // temporary
+
         // fetch new episodes
         let fresh = [];
         firebase.database().ref(`podcasts`).limitToLast(50).once("value", function (snapshot) {
@@ -29,6 +32,14 @@ export class Browse extends React.Component {
                     if(podcast.val().rss){
                         let profileImage = '';
                         let podcastURL = podcast.val().podcastURL;
+                        let favorited = false;
+                        if(currentUser){
+                            firebase.database().ref(`users/${currentUser.uid}/favorites/${podcast.val().id}`).once('value', function (fav) {
+                                if(fav.val()){
+                                    favorited = true;
+                                }
+                            })
+                        }
                         firebase.database().ref(`users/${podcast.val().podcastArtist}/profileImage`).once("value", function (image) {
                             if(image.val().profileImage){
                                 profileImage = image.val().profileImage;
@@ -41,7 +52,7 @@ export class Browse extends React.Component {
                             }
                         });
                         setTimeout(() => {
-                            let ep = {podcastTitle: podcast.val().podcastTitle, podcastArtist: podcast.val().podcastArtist, id: podcast.val().id, username: username, profileImage: profileImage, podcastURL: podcastURL};
+                            let ep = {podcastTitle: podcast.val().podcastTitle, podcastArtist: podcast.val().podcastArtist, id: podcast.val().id, username: username, profileImage: profileImage, podcastURL: podcastURL, favorited: favorited};
                             fresh.push(ep);
                         }, 1000)
                     }
@@ -57,6 +68,14 @@ export class Browse extends React.Component {
                 if(podcast.child("plays").numChildren() > 0){
                     let profileImage = '';
                     let podcastURL = '';
+                    let favorited = false;
+                    if(currentUser){
+                        firebase.database().ref(`users/${currentUser.uid}/favorites/${podcast.val().id}`).once('value', function (fav) {
+                            if(fav.val()){
+                                favorited = true;
+                            }
+                        })
+                    }
                     if(podcast.val().rss){
                         firebase.database().ref(`users/${podcast.val().podcastArtist}/profileImage`).once("value", function (image) {
                             if(image.val().profileImage){
@@ -85,7 +104,7 @@ export class Browse extends React.Component {
                         }
                     });
                     setTimeout(() => {
-                        let ep = {podcastTitle: podcast.val().podcastTitle, podcastArtist: podcast.val().podcastArtist, id: podcast.val().id, username: username, profileImage: profileImage, podcastURL: podcastURL};
+                        let ep = {podcastTitle: podcast.val().podcastTitle, podcastArtist: podcast.val().podcastArtist, id: podcast.val().id, username: username, profileImage: profileImage, podcastURL: podcastURL, favorited: favorited};
                         topCharts.push(ep);
                         for(let i = topCharts.length-1; i > 0 && topCharts[i].plays.length > topCharts[i-1].plays.length; i--){
                             let temp = topCharts[i-1];
@@ -107,6 +126,14 @@ export class Browse extends React.Component {
                     else{
                         let profileImage = '';
                         let podcastURL = '';
+                        let favorited = false;
+                        if(currentUser){
+                            firebase.database().ref(`users/${currentUser.uid}/favorites/${podcast.val().id}`).once('value', function (fav) {
+                                if(fav.val()){
+                                    favorited = true;
+                                }
+                            })
+                        }
                         const storageRef = firebase.storage().ref(`/users/${podcast.val().podcastArtist}/image-profile-uploaded`);
                         storageRef.getDownloadURL()
                             .then(function(url) {
@@ -125,7 +152,7 @@ export class Browse extends React.Component {
                             }
                         });
                         setTimeout(() => {
-                            let ep = {podcastTitle: podcast.val().podcastTitle, podcastArtist: podcast.val().podcastArtist, id: podcast.val().id, username: username, profileImage: profileImage, podcastURL: podcastURL};
+                            let ep = {podcastTitle: podcast.val().podcastTitle, podcastArtist: podcast.val().podcastArtist, id: podcast.val().id, username: username, profileImage: profileImage, podcastURL: podcastURL, favorited: favorited};
                             onTess.push(ep);
                         }, 1000)
                     }

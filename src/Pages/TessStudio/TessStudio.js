@@ -20,6 +20,9 @@ export class TessStudio extends React.Component {
             idk: [],
         };
 
+        // const {currentUser} = firebase.auth();       NEED TO BE LOGGED IN
+        let currentUser = {uid: 'pgIx9JAiq9aQWcyUZX8AuIdqNmP2'}; // temporary
+
         // Best Ideas
         let bestIdeas = [];
         firebase.database().ref(`users/${'The Best Ideas Podcast'}/podcasts`).once("value", function (snap) {
@@ -28,6 +31,14 @@ export class TessStudio extends React.Component {
                     if(podcast.val()){
                         let profileImage = '';
                         let podcastURL = '';
+                        let favorited = false;
+                        if(currentUser){
+                            firebase.database().ref(`users/${currentUser.uid}/favorites/${podcast.val().id}`).once('value', function (fav) {
+                                if(fav.val()){
+                                    favorited = true;
+                                }
+                            })
+                        }
                         if(podcast.val().rss){
                             firebase.database().ref(`users/${podcast.val().podcastArtist}/profileImage`).once("value", function (image) {
                                 if(image.val().profileImage){
@@ -56,7 +67,7 @@ export class TessStudio extends React.Component {
                             }
                         });
                         setTimeout(() => {
-                            let ep = {podcastTitle: podcast.val().podcastTitle, podcastArtist: podcast.val().podcastArtist, rss: podcast.val().rss, id: podcast.val().id, username: username, profileImage: profileImage, podcastURL: podcastURL};
+                            let ep = {podcastTitle: podcast.val().podcastTitle, podcastArtist: podcast.val().podcastArtist, rss: podcast.val().rss, id: podcast.val().id, username: username, profileImage: profileImage, podcastURL: podcastURL, favorited: favorited};
                             bestIdeas.push(ep);
                             }, 1000)
                     }
@@ -72,6 +83,14 @@ export class TessStudio extends React.Component {
                     if(podcast.val()){
                         let profileImage = '';
                         let podcastURL = '';
+                        let favorited = false;
+                        if(currentUser){
+                            firebase.database().ref(`users/${currentUser.uid}/favorites/${podcast.val().id}`).once('value', function (fav) {
+                                if(fav.val()){
+                                    favorited = true;
+                                }
+                            })
+                        }
                         if(podcast.val().rss){
                             firebase.database().ref(`users/${podcast.val().podcastArtist}/profileImage`).once("value", function (image) {
                                 if(image.val().profileImage){
@@ -100,7 +119,7 @@ export class TessStudio extends React.Component {
                             }
                         });
                         setTimeout(() => {
-                            let ep = {podcastTitle: podcast.val().podcastTitle, podcastArtist: podcast.val().podcastArtist, rss: podcast.val().rss, id: podcast.val().id, username: username, profileImage: profileImage, podcastURL: podcastURL};
+                            let ep = {podcastTitle: podcast.val().podcastTitle, podcastArtist: podcast.val().podcastArtist, rss: podcast.val().rss, id: podcast.val().id, username: username, profileImage: profileImage, podcastURL: podcastURL, favorited: favorited};
                             bogw.push(ep);
                         }, 1000)
                     }
@@ -116,13 +135,21 @@ export class TessStudio extends React.Component {
                     if(podcast.val()){
                         let profileImage = '';
                         let podcastURL = '';
+                        let favorited = false;
+                        if(currentUser){
+                            firebase.database().ref(`users/${currentUser.uid}/favorites/${podcast.val().id}`).once('value', function (fav) {
+                                if(fav.val()){
+                                    favorited = true;
+                                }
+                            })
+                        }
                         if(podcast.val().rss){
                             firebase.database().ref(`users/${podcast.val().podcastArtist}/profileImage`).once("value", function (image) {
                                 if(image.val().profileImage){
                                     profileImage = image.val().profileImage;
                                 }
                             });
-                            podcastURL = podcast.val().rss;
+                            podcastURL = podcast.val().podcastURL;
                         }
                         else{
                             const storageRef = firebase.storage().ref(`/users/${podcast.val().podcastArtist}/image-profile-uploaded`);
@@ -144,7 +171,7 @@ export class TessStudio extends React.Component {
                             }
                         });
                         setTimeout(() => {
-                            let ep = {podcastTitle: podcast.val().podcastTitle, podcastArtist: podcast.val().podcastArtist, id: podcast.val().id, username: username, profileImage: profileImage, podcastURL: podcastURL};
+                            let ep = {podcastTitle: podcast.val().podcastTitle, podcastArtist: podcast.val().podcastArtist, id: podcast.val().id, username: username, profileImage: profileImage, podcastURL: podcastURL, favorited: favorited};
                             idk.push(ep);
                         }, 1000)
                     }

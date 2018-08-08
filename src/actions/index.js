@@ -60,3 +60,10 @@ export function setVolume (text) {
         volume: text
     }
 }
+
+export function favorited (text) {
+    return {
+        type: "FAVORITED",
+        bool: text
+    }
+}
