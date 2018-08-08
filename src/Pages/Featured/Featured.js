@@ -23,35 +23,35 @@ export class Featured extends React.Component {
                             <div className="container">
                                 <div className="trow-header">
                                     <div className={"tsHeaderTitles"}>
-                                        <h2>Podcasts</h2>
+                                        <a href={"podcasts"} className="title" >Podcasts</a>
                                     </div>
                                 </div>
                             </div>
                             <div className="container">
                                 <div className="trow-header">
                                     <div className={"tsHeaderTitles"}>
-                                        <h2>Playlists</h2>
+                                        <a href={"playlists"} className="title" >Playlists</a>
                                     </div>
                                 </div>
                             </div>
                             <div className="container">
                                 <div className="trow-header">
                                     <div className={"tsHeaderTitles"}>
-                                        <h2>Favorites</h2>
+                                        <a href={"favorites"} className="title" >Favorites</a>
                                     </div>
                                 </div>
                             </div>
                             <div className="container">
                                 <div className="trow-header">
                                     <div className={"tsHeaderTitles"}>
-                                        <h2>Highlights</h2>
+                                        <a href={"highlights"} className="title" >Highlights</a>
                                     </div>
                                 </div>
                             </div>
                             <div className="container">
                                 <div className="trow-header">
                                     <div className={"tsHeaderTitles"}>
-                                        <h2>History</h2>
+                                        <a href={"history"} className="title" >History</a>
                                     </div>
                                 </div>
                             </div>

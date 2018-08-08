@@ -13,7 +13,7 @@ export const PlayBack = (props) => {
                 console.log(value);
                 store.dispatch(setPlayBackRate(value));
             }}/>
-            <div className={"tsLabelsWrap"}><span>0.5</span><span>{store.getState().player.playBackRate.toFixed(1)}</span><span>2.0</span></div>
+            <div className={"tsLabelsWrap"}><span>0.5</span><div className="tsLabelBold">{store.getState().player.playBackRate.toFixed(1)}</div><span>2.0</span></div>
         </div>
     )
 }
