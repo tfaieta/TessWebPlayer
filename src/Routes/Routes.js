@@ -29,7 +29,6 @@ export class Routes extends React.Component {
                     <Route path='/history' component={History}/>
                     <Route path='/favorites' component={Favorites}/>
                     <Route path='/view' component={ProfileView}/>
-                    <Route path='/login' component={Login}/>
                     <Route  component={Notfound}/>
                 </Switch>
             </Router>

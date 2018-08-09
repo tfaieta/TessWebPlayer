@@ -12,6 +12,7 @@ import firebase from 'firebase';
 import { store } from "./store";
 import { setUserInfo } from "./actions";
 import {setBio, setProfileImage, setUsername} from "./actions/index";
+import {Login} from './Pages/Login/Login'
 
 const config = {
     apiKey: 'AIzaSyCMCsGc-foyjeiknZt9Nw5Sh8NrC2azZUg',
@@ -61,12 +62,21 @@ firebase.database().ref(`users/${currentUser.uid}/profileImage`).once("value", f
 
 class App extends React.Component {
     render() {
-        return (
-            <div className="grid-tess">
-                <Routes podcast={store.getState().podcast} myUsername={store.getState().myUsername} myBio={store.getState().myBio} myProfileImage={store.getState().myProfileImage} user={store.getState().user}/>
-                <Footer podcast={store.getState().podcast} myUsername={store.getState().myUsername} myBio={store.getState().myBio} myProfileImage={store.getState().myProfileImage} user={store.getState().user}/>
-            </div>
-        )
+        const dummyLogin = true
+
+        if (dummyLogin) {
+            return(
+                <Login/>
+            )
+        }
+        else {
+            return (
+                <div className="grid-tess">
+                    <Routes podcast={store.getState().podcast} myUsername={store.getState().myUsername} myBio={store.getState().myBio} myProfileImage={store.getState().myProfileImage} user={store.getState().user}/>
+                    <Footer podcast={store.getState().podcast} myUsername={store.getState().myUsername} myBio={store.getState().myBio} myProfileImage={store.getState().myProfileImage} user={store.getState().user}/>
+                </div>
+            )
+        }
     }
 }
 
