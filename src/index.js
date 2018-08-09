@@ -63,8 +63,8 @@ class App extends React.Component {
     render() {
         return (
             <div className="grid-tess">
-                <Routes podcast={store.getState().podcast} myUsername={store.getState().myUsername} myBio={store.getState().myBio} myProfileImage={store.getState().myProfileImage}/>
-                <Footer podcast={store.getState().podcast} myUsername={store.getState().myUsername} myBio={store.getState().myBio} myProfileImage={store.getState().myProfileImage}/>
+                <Routes podcast={store.getState().podcast} myUsername={store.getState().myUsername} myBio={store.getState().myBio} myProfileImage={store.getState().myProfileImage} user={store.getState().user}/>
+                <Footer podcast={store.getState().podcast} myUsername={store.getState().myUsername} myBio={store.getState().myBio} myProfileImage={store.getState().myProfileImage} user={store.getState().user}/>
             </div>
         )
     }

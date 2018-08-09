@@ -8,6 +8,9 @@ import {TessStudio} from '../Pages/TessStudio/TessStudio'
 import {Upload} from '../Pages/Upload/Upload'
 import {Profile} from '../Pages/Profile/Profile'
 import {Notfound} from '../Pages/Notfound/Notfound'
+import {History} from "../Pages/History/History";
+import {Favorites} from "../Pages/Favorites/Favorites";
+import {ProfileView} from "../Pages/ProfileView/ProfileView";
 
 
 export class Routes extends React.Component {
@@ -17,11 +20,14 @@ export class Routes extends React.Component {
                 <Switch>
                     <Route exact path='/' component={Listen}/>
                     <Route path='/browse' component={Browse}/>
-                    <Route path='/featured' component={Featured}/>
+                    <Route path='/library' component={Featured}/>
                     <Route path='/learn' component={Learn}/>
                     <Route path='/tess-studio' component={TessStudio}/>
                     <Route path='/upload' component={Upload}/>
                     <Route path='/profile' component={Profile}/>
+                    <Route path='/history' component={History}/>
+                    <Route path='/favorites' component={Favorites}/>
+                    <Route path='/view' component={ProfileView}/>
                     <Route  component={Notfound}/>
                 </Switch>
             </Router>

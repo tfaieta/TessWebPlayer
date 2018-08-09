@@ -7,7 +7,7 @@ import firebase from 'firebase';
 import { store } from "../../store";
 
 
-export class Profile extends React.Component {
+export class ProfileView extends React.Component {
 
     componentWillUnmount(){
         clearTimeout(this.timeout1);
@@ -18,14 +18,13 @@ export class Profile extends React.Component {
 
         this.state = {
             eps: [],
-            profileInfo: {username: store.getState().myUsername, bio: store.getState().myBio, profileImage: store.getState().myProfileImage},
+            profileInfo: {username: store.getState().user.username, bio: store.getState().user.bio, profileImage: store.getState().user.profileImage},
             userFollowers: [],
             userFollowing: [],
             userTrackingList: []
         };
 
-        // const {currentUser} = firebase.auth();       NEED TO BE LOGGED IN
-        let currentUser = {uid: 'pgIx9JAiq9aQWcyUZX8AuIdqNmP2'}; // temporary
+        let currentUser = {uid: store.getState().user.id};
         const refFol = firebase.database().ref(`users/${currentUser.uid}/followers`);
         const refFollowing = firebase.database().ref(`users/${currentUser.uid}/following`);
         const refTracking = firebase.database().ref(`users/${currentUser.uid}/tracking`);
@@ -115,7 +114,7 @@ export class Profile extends React.Component {
                     <div className="tsscrollwrap">
                         <div className="tsscrollcontent">
                             <div className="profileWrap">
-                                <ProfileInfo profileInfo={this.state.profileInfo} userFollowers={this.state.userFollowers} userFollowing={this.state.userFollowing} userTrackingList={this.state.userTrackingList}/>
+                                <ProfileInfo profileInfo={store.getState().user} userFollowers={this.state.userFollowers} userFollowing={this.state.userFollowing} userTrackingList={this.state.userTrackingList}/>
                             </div>
                             <div className="container">
                                 <div className="trow-header">

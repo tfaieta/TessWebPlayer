@@ -60,6 +60,12 @@ export default (state, action) => {
                 podcast: { favorited: action.bool, podcastTitle: state.podcast.podcastTitle, podcastArtist: state.podcast.podcastArtist, id: state.podcast.id, username: state.podcast.username, profileImage: state.podcast.profileImage, podcastURL: state.podcast.podcastURL}
             };
 
+        case "SETUSERINFO":
+            return {
+                ...state,
+                user: { username: action.username, bio: action.bio, profileImage: action.image, id: action.id}
+            };
+
         default:
             return state;
     }

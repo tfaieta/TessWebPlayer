@@ -6,7 +6,10 @@ import {MenuButton, ListItem,} from 'react-md';
 import Button from "antd/es/button/button";
 import { store } from "../../store";
 import { setPodcast, setPlayStatus } from "../../actions";
-import {setCurrentTime} from "../../actions/index";
+import {setCurrentTime, setUserInfo} from "../../actions/index";
+import { NavLink, Link } from 'react-router-dom'
+import firebase from 'firebase';
+
 
 export const Track = (props) => {
     return (
@@ -30,8 +33,21 @@ export const Track = (props) => {
             </div>
             <div className={"trackInfo"}>
                 <div>
-                    <a href={"#"} className="title" >{props.podcast.podcastTitle}</a>
-                    <a href={"#"} className="album">{props.podcast.username}</a>
+                    <NavLink to='/episode'>
+                        <a className="title" >{props.podcast.podcastTitle}</a>
+                    </NavLink>
+                    <NavLink to='/view'>
+                        <a onClick={() =>{
+                            store.dispatch(setUserInfo(props.podcast.username, '', props.podcast.profileImage, props.podcast.podcastArtist));
+                            firebase.database().ref(`users/${props.podcast.podcastArtist}/bio`).once('value', function (snapshot) {
+                                if(snapshot.val()){
+                                    if(snapshot.val().bio){
+                                        store.dispatch(setUserInfo(props.podcast.username, snapshot.val().bio, props.podcast.profileImage, props.podcast.podcastArtist));
+                                    }
+                                }
+                            })
+                        }} className="album" >{props.podcast.username}</a>
+                    </NavLink>
                 </div>
                 <MenuButton
                     id={"tscmenu"+ props.menukey}
@@ -43,7 +59,18 @@ export const Track = (props) => {
                         <ListItem key={3} primaryText="Add to Queue"/>,
                         <ListItem key={4} primaryText="Add to Playlist"/>,
                         <ListItem key={5} primaryText="Add to Favorites"/>,
-                        <ListItem key={6} primaryText="Go to Profile"/>,
+                        <NavLink to='/view'>
+                            <ListItem onClick={() => {
+                                store.dispatch(setUserInfo(props.podcast.username, '', props.podcast.profileImage, props.podcast.podcastArtist));
+                                firebase.database().ref(`users/${props.podcast.podcastArtist}/bio`).once('value', function (snapshot) {
+                                    if(snapshot.val()){
+                                        if(snapshot.val().bio){
+                                            store.dispatch(setUserInfo(props.podcast.username, snapshot.val().bio, props.podcast.profileImage, props.podcast.podcastArtist));
+                                        }
+                                    }
+                                })
+                            }} key={6} primaryText="Go to Profile"/>
+                        </NavLink>,
                     ]}
 
                     anchor={{

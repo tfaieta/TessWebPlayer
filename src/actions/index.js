@@ -67,3 +67,13 @@ export function favorited (text) {
         bool: text
     }
 }
+
+export function setUserInfo (username, bio, image, id) {
+    return {
+        type: "SETUSERINFO",
+        username: username,
+        bio: bio,
+        image: image,
+        id: id
+    }
+}
