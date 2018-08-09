@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {Header} from '../../components/Header/Header'
-import {Profile as ProfileInfo} from '../../components/Profile/Profile'
+import {Profile as ProfileInfo} from '../../components/ProfileInfoUser/ProfileInfoUser'
 import {Track} from '../../components/Track/Track'
 import {Button} from 'react-md';
 import firebase from 'firebase';

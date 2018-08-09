@@ -63,8 +63,15 @@ export default (state, action) => {
         case "SETUSERINFO":
             return {
                 ...state,
-                user: { username: action.username, bio: action.bio, profileImage: action.image, id: action.id}
+                user: { username: action.username, bio: action.bio, profileImage: action.image, id: action.id, following: action.following}
             };
+
+        case "FOLLOWED":
+            return {
+                ...state,
+                user: { following: action.bool, username: state.user.username, bio: state.user.bio, profileImage: state.user.profileImage, id: state.user.id}
+            };
+
 
         default:
             return state;

@@ -68,12 +68,20 @@ export function favorited (text) {
     }
 }
 
-export function setUserInfo (username, bio, image, id) {
+export function setUserInfo (username, bio, image, id, following) {
     return {
         type: "SETUSERINFO",
         username: username,
         bio: bio,
         image: image,
-        id: id
+        id: id,
+        following: following
+    }
+}
+
+export function followed (text) {
+    return {
+        type: "FOLLOWED",
+        bool: text
     }
 }
