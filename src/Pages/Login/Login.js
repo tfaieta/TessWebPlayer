@@ -5,7 +5,15 @@ export class Login extends React.Component {
     
       render() {
         return (
-          <LoginForm/>
+          <div className="tcontent">
+            <div className="tsscrollcontent">
+                <div className="container">
+                    <div className="trow-header">
+                        <LoginForm/>
+                    </div>
+                </div>
+            </div>
+          </div>
         );
       }
 }
