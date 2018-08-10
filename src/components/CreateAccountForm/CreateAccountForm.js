@@ -4,7 +4,7 @@ import './style.scss'
 
 const FormItem = Form.Item;
 
-export class LoginForm extends React.Component {
+export class CreateAccountForm extends React.Component {
 
     handleSubmit = (e) => {
         e.preventDefault();
@@ -21,10 +21,17 @@ export class LoginForm extends React.Component {
         return (
           <Form onSubmit={this.handleSubmit} className="login-form" layout="vertical">
             <FormItem>
+              {getFieldDecorator('username', {
+                rules: [{ required: true, message: 'Please input a desired username!' }],
+              })(
+                <Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="Username" />
+              )}
+            </FormItem>
+            <FormItem>
               {getFieldDecorator('email', {
                 rules: [{ required: true, message: 'Please input your email!' }],
               })(
-                <Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="Email" />
+                <Input prefix={<Icon type="mail" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="Email" />
               )}
             </FormItem>
             <FormItem>
@@ -41,11 +48,7 @@ export class LoginForm extends React.Component {
               })(
                 <Checkbox className="login-form-forgot">Remember me</Checkbox>
               )}
-              <a className="login-form-forgot" href="">Forgot password</a>
               <Button type="primary" htmlType="submit" className="login-form-button">
-                Log in
-              </Button>
-              <Button className="login-form-button" onClick={this.props.onClick}>
                 Sign Up
               </Button>
             </FormItem>
@@ -54,4 +57,4 @@ export class LoginForm extends React.Component {
       }
 }
 
-LoginForm = Form.create()(LoginForm);
+CreateAccountForm = Form.create()(CreateAccountForm);
