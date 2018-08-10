@@ -22,20 +22,24 @@ export class Login extends React.Component {
 
   render() {
     return (
-      <div className="loginContent">
-          <img 
-          alt="logo"
-          style={{height: 142.575, width: 126.575, marginBottom: 50}}
-          src={tessLogoWhite} 
-          />
-          {this.state.switch ?
-            <CreateAccountForm/>
-            :
-            <LoginForm
-              onClick={this.handleSwitch}
+        <div className="loginContent">
+            <img 
+            alt="logo"
+            style={{height: 142.575, width: 126.575, marginBottom: 50}}
+            src={tessLogoWhite}
             />
-          }
-      </div>    
+            {this.state.switch ?
+              <CreateAccountForm/>
+              :
+              <LoginForm
+                onClick={this.handleSwitch}
+              />
+            }
+            <div className="footer">
+            <p className="loveFooter">Made with ❤ in Gainesville, FL</p>
+            </div>  
+        </div>
+          
     )
   }
 }
