@@ -51,6 +51,9 @@ export class CreateAccountForm extends React.Component {
               <Button type="primary" htmlType="submit" className="login-form-button">
                 Sign Up
               </Button>
+              <Button className="login-form-button" onClick={this.props.onClick}>
+                Back
+              </Button>
             </FormItem>
           </Form>
         );

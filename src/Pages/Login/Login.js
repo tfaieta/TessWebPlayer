@@ -13,11 +13,16 @@ export class Login extends React.Component {
       switch: false
     }
 
-    this.handleSwitch = this.handleSwitch.bind(this)
+    this.handleCreate = this.handleCreate.bind(this)
+    this.handleBack = this.handleBack.bind(this)
   }
 
-  handleSwitch() {
+  handleCreate() {
     this.setState({switch: true})
+  }
+
+  handleBack() {
+    this.setState({switch: false})
   }
 
   render() {
@@ -29,14 +34,16 @@ export class Login extends React.Component {
             src={tessLogoWhite}
             />
             {this.state.switch ?
-              <CreateAccountForm/>
+              <CreateAccountForm
+                onClick={this.handleBack}
+              />
               :
               <LoginForm
-                onClick={this.handleSwitch}
+                onClick={this.handleCreate}
               />
             }
             <div className="footer">
-            <p className="loveFooter">Made with ❤ in Gainesville, FL</p>
+              <p className="loveFooter">Made with ❤ in Gainesville, FL</p>
             </div>  
         </div>
           
