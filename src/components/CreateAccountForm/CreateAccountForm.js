@@ -20,6 +20,7 @@ export class CreateAccountForm extends React.Component {
               firebase.database().ref(`usernames/`).child(username.toLowerCase()).once("value", function (snapshot) {
                   if (snapshot.val()) {
                       console.log(snapshot.val().username + " is taken");
+                      store.dispatch(setAuth('', '', false, '', 'Username is taken'));
                   }
                   else {
                       firebase.auth().createUserWithEmailAndPassword(values.email, values.password)
