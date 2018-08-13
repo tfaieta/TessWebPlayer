@@ -38,11 +38,20 @@ export const Track = (props) => {
                     </NavLink>
                     <NavLink to='/view'>
                         <a onClick={() =>{
-                            store.dispatch(setUserInfo(props.podcast.username, '', props.podcast.profileImage, props.podcast.podcastArtist));
+                            store.dispatch(setUserInfo(props.podcast.username, '', props.podcast.profileImage, props.podcast.podcastArtist, false));
                             firebase.database().ref(`users/${props.podcast.podcastArtist}/bio`).once('value', function (snapshot) {
                                 if(snapshot.val()){
                                     if(snapshot.val().bio){
-                                        store.dispatch(setUserInfo(props.podcast.username, snapshot.val().bio, props.podcast.profileImage, props.podcast.podcastArtist));
+                                        store.dispatch(setUserInfo(props.podcast.username, snapshot.val().bio, props.podcast.profileImage, props.podcast.podcastArtist, false));
+                                        // const {currentUser} = firebase.auth();       NEED TO BE LOGGED IN
+                                        let currentUser = {uid: 'pgIx9JAiq9aQWcyUZX8AuIdqNmP2'}; // temporary
+                                        if(currentUser){
+                                            firebase.database().ref(`users/${currentUser.uid}/following/${props.podcast.podcastArtist}`).once('value', function (snap) {
+                                                if(snap.val()){
+                                                    store.dispatch(setUserInfo(props.podcast.username, snapshot.val().bio, props.podcast.profileImage, props.podcast.podcastArtist, true));
+                                                }
+                                            })
+                                        }
                                     }
                                 }
                             })
@@ -54,18 +63,27 @@ export const Track = (props) => {
                     className={"contextMenu"}
                     icon
                     menuItems={[
-                        <ListItem key={1} primaryText="Share"/>,
-                        <ListItem key={2} primaryText="Episode Info"/>,
+                        <ListItem key={1} primaryText="Episode Info"/>,
+                        <ListItem key={2} primaryText="Share"/>,
                         <ListItem key={3} primaryText="Add to Queue"/>,
                         <ListItem key={4} primaryText="Add to Playlist"/>,
                         <ListItem key={5} primaryText="Add to Favorites"/>,
                         <NavLink to='/view'>
                             <ListItem onClick={() => {
-                                store.dispatch(setUserInfo(props.podcast.username, '', props.podcast.profileImage, props.podcast.podcastArtist));
+                                store.dispatch(setUserInfo(props.podcast.username, '', props.podcast.profileImage, props.podcast.podcastArtist, false));
                                 firebase.database().ref(`users/${props.podcast.podcastArtist}/bio`).once('value', function (snapshot) {
                                     if(snapshot.val()){
                                         if(snapshot.val().bio){
-                                            store.dispatch(setUserInfo(props.podcast.username, snapshot.val().bio, props.podcast.profileImage, props.podcast.podcastArtist));
+                                            store.dispatch(setUserInfo(props.podcast.username, snapshot.val().bio, props.podcast.profileImage, props.podcast.podcastArtist, false));
+                                            // const {currentUser} = firebase.auth();       NEED TO BE LOGGED IN
+                                            let currentUser = {uid: 'pgIx9JAiq9aQWcyUZX8AuIdqNmP2'}; // temporary
+                                            if(currentUser){
+                                                firebase.database().ref(`users/${currentUser.uid}/following/${props.podcast.podcastArtist}`).once('value', function (snap) {
+                                                    if(snap.val()){
+                                                        store.dispatch(setUserInfo(props.podcast.username, snapshot.val().bio, props.podcast.profileImage, props.podcast.podcastArtist, true));
+                                                    }
+                                                })
+                                            }
                                         }
                                     }
                                 })

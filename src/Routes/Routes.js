@@ -11,6 +11,7 @@ import {Notfound} from '../Pages/Notfound/Notfound'
 import {History} from "../Pages/History/History";
 import {Favorites} from "../Pages/Favorites/Favorites";
 import {ProfileView} from "../Pages/ProfileView/ProfileView";
+import {Podcasts} from "../Pages/Podcasts/Podcasts";
 
 export class Routes extends React.Component {
     render() {
@@ -26,6 +27,7 @@ export class Routes extends React.Component {
                     <Route path='/profile' component={Profile}/>
                     <Route path='/history' component={History}/>
                     <Route path='/favorites' component={Favorites}/>
+                    <Route path='/podcasts' component={Podcasts}/>
                     <Route path='/view' component={ProfileView}/>
                     <Route  component={Notfound}/>
                 </Switch>
