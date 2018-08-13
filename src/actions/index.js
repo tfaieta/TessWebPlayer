@@ -1,3 +1,14 @@
+export function setAuth (username, email, bool, uid, error) {
+    return {
+        type: "SET_AUTH",
+        username: username,
+        email: email,
+        loggedIn: bool,
+        uid: uid,
+        errorMessage: error
+    }
+}
+
 export function setPodcast (text) {
     return {
         type: "SET_PODCAST",

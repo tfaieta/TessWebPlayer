@@ -14,15 +14,18 @@ import {
 
 } from 'react-md';
 import {Link} from 'react-router-dom'
+import {setAuth} from "../../actions/index";
 const AccountMenu = ({simplifiedMenu}) => (
     <DropdownMenu
         className={"tsAccountMenu"}
         id={`${!simplifiedMenu ? 'smart-' : ''}avatar-dropdown-menu`}
         menuItems={
             [
-
                 <ListItem key={1} component={Link}  to="/profile" primaryText="Profile"/>,
-                <ListItem key={2} component={Link}  to="/logout" primaryText="Log out"/>,
+                <ListItem key={2} component={Link}  to="/" primaryText="Log out" onClick={() => {
+                    firebase.auth().signOut();
+                    store.dispatch(setAuth('', '', false, '', ''));
+                }} />,
             ]
 
         }

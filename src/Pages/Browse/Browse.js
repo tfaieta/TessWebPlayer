@@ -4,6 +4,7 @@ import {Header} from '../../components/Header/Header'
 import {Categories} from '../../components/Categories/Categories'
 import {Track} from '../../components/Track/Track'
 import firebase from 'firebase';
+import {store} from "../../store/index";
 
 
 export class Browse extends React.Component {
@@ -21,9 +22,7 @@ export class Browse extends React.Component {
             onTess: [],
         };
 
-        // const {currentUser} = firebase.auth();       NEED TO BE LOGGED IN
-        let currentUser = {uid: 'pgIx9JAiq9aQWcyUZX8AuIdqNmP2'}; // temporary
-
+        let currentUser = {uid: store.getState().auth.uid};
         // fetch new episodes
         let fresh = [];
         firebase.database().ref(`podcasts`).limitToLast(50).once("value", function (snapshot) {

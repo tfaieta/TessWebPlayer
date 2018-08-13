@@ -11,8 +11,6 @@ import {Notfound} from '../Pages/Notfound/Notfound'
 import {History} from "../Pages/History/History";
 import {Favorites} from "../Pages/Favorites/Favorites";
 import {ProfileView} from "../Pages/ProfileView/ProfileView";
-import { Login } from '../Pages/Login/Login';
-
 
 export class Routes extends React.Component {
     render() {

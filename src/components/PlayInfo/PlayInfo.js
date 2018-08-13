@@ -16,8 +16,7 @@ export const PlayInfo = (props) => {
                 <div className="title">{store.getState().podcast.podcastTitle}</div>
                 <div className="album-title">{store.getState().podcast.username}</div>
                 <Button className={"tsDefaultBtn"} onClick={() => {
-                    // const {currentUser} = firebase.auth();       NEED TO BE LOGGED IN
-                    let currentUser = {uid: 'pgIx9JAiq9aQWcyUZX8AuIdqNmP2'}; // temporary
+                    let currentUser = {uid: store.getState().auth.uid};
                     if(currentUser && store.getState().podcast.id != ''){
                         const id = store.getState().podcast.id;
                         if(store.getState().podcast.favorited){

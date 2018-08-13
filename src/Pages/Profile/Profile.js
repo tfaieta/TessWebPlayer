@@ -24,8 +24,7 @@ export class Profile extends React.Component {
             userTrackingList: []
         };
 
-        // const {currentUser} = firebase.auth();       NEED TO BE LOGGED IN
-        let currentUser = {uid: 'pgIx9JAiq9aQWcyUZX8AuIdqNmP2'}; // temporary
+        let currentUser = {uid: store.getState().auth.uid};
         const refFol = firebase.database().ref(`users/${currentUser.uid}/followers`);
         const refFollowing = firebase.database().ref(`users/${currentUser.uid}/following`);
         const refTracking = firebase.database().ref(`users/${currentUser.uid}/tracking`);
