@@ -3,6 +3,7 @@ import {AsideNav} from '../../components/AsideNav/AsideNav'
 import {Header} from '../../components/Header/Header'
 import {Track} from '../../components/Track/Track'
 import firebase from 'firebase';
+import { store } from "../../store";
 
 
 export class Favorites extends React.Component {
@@ -19,8 +20,7 @@ export class Favorites extends React.Component {
         };
 
         // fetch home feed
-        // const {currentUser} = firebase.auth();       NEED TO BE LOGGED IN
-        let currentUser = {uid: 'pgIx9JAiq9aQWcyUZX8AuIdqNmP2'}; // temporary
+        let currentUser = {uid: store.getState().auth.uid}; // temporary
         let favorites = [];
         if(currentUser){
             const refFavorites = firebase.database().ref(`users/${currentUser.uid}/favorites`);

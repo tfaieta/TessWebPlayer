@@ -12,7 +12,6 @@ import {History} from "../Pages/History/History";
 import {Favorites} from "../Pages/Favorites/Favorites";
 import {ProfileView} from "../Pages/ProfileView/ProfileView";
 
-
 export class Routes extends React.Component {
     render() {
         return (

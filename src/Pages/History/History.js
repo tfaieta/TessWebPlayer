@@ -3,6 +3,7 @@ import {AsideNav} from '../../components/AsideNav/AsideNav'
 import {Header} from '../../components/Header/Header'
 import {Track} from '../../components/Track/Track'
 import firebase from 'firebase';
+import {store} from "../../store/index";
 
 
 export class History extends React.Component {
@@ -18,9 +19,7 @@ export class History extends React.Component {
             history: []
         };
 
-        // fetch home feed
-        // const {currentUser} = firebase.auth();       NEED TO BE LOGGED IN
-        let currentUser = {uid: 'pgIx9JAiq9aQWcyUZX8AuIdqNmP2'}; // temporary
+        let currentUser = {uid: store.getState().auth.uid};
         let history = [];
         if(currentUser){
             const refHistory = firebase.database().ref(`users/${currentUser.uid}/recentlyPlayed`);

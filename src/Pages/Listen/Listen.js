@@ -4,6 +4,7 @@ import {Header} from '../../components/Header/Header'
 import {Track} from '../../components/Track/Track'
 import {CatchUpWidget} from '../../components/CatchUpWidget/CatchUpWidget'
 import firebase from 'firebase';
+import {store} from "../../store/index";
 
 
 export class Listen extends React.Component {
@@ -19,9 +20,7 @@ export class Listen extends React.Component {
             homeFollowedContent: []
         };
 
-        // fetch home feed
-        // const {currentUser} = firebase.auth();       NEED TO BE LOGGED IN
-        let currentUser = {uid: 'pgIx9JAiq9aQWcyUZX8AuIdqNmP2'}; // temporary
+        let currentUser = {uid: store.getState().auth.uid};
         let homeFollowedContent = [];
         const refFol = firebase.database().ref(`users/${currentUser.uid}/following`);
         refFol.once("value", function (snapshot) {

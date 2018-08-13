@@ -3,6 +3,7 @@ import {AsideNav} from '../../components/AsideNav/AsideNav'
 import {Header} from '../../components/Header/Header'
 import {Track} from '../../components/Track/Track'
 import firebase from 'firebase';
+import {store} from "../../store/index";
 
 
 export class TessStudio extends React.Component {
@@ -20,9 +21,7 @@ export class TessStudio extends React.Component {
             idk: [],
         };
 
-        // const {currentUser} = firebase.auth();       NEED TO BE LOGGED IN
-        let currentUser = {uid: 'pgIx9JAiq9aQWcyUZX8AuIdqNmP2'}; // temporary
-
+        let currentUser = {uid: store.getState().auth.uid};
         // Best Ideas
         let bestIdeas = [];
         firebase.database().ref(`users/${'The Best Ideas Podcast'}/podcasts`).once("value", function (snap) {
