@@ -24,11 +24,11 @@ const config = {
 };
 
 firebase.initializeApp(config);
-
-// get user's profile info if logged in
-if(firebase.auth()){
+// check if logged in & get user's profile info
+firebase.auth().onAuthStateChanged(() => {
     const {currentUser} = firebase.auth();
     if(currentUser){
+        console.log("Logged in");
         store.dispatch(setAuth('', '', true, currentUser.uid, ''));
         firebase.database().ref(`/users/${currentUser.uid}/username`).orderByChild("username").once("value", function(snap) {
             if(snap.val()){
@@ -61,8 +61,7 @@ if(firebase.auth()){
             }
         });
     }
-}
-
+});
 
 
 class App extends React.Component {

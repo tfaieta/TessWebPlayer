@@ -36,13 +36,6 @@ export class Featured extends React.Component {
                             </div>
                             <div className="container">
                                 <div className="trow-header">
-                                    <NavLink className={"tsHeaderTitles"} to='/highlights'>
-                                        <a className="title" >Highlights</a>
-                                    </NavLink>
-                                </div>
-                            </div>
-                            <div className="container">
-                                <div className="trow-header">
                                     <NavLink className={"tsHeaderTitles"} to='/history'>
                                         <a className="title" >History</a>
                                     </NavLink>

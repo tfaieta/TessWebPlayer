@@ -15,6 +15,7 @@ export class ProfileView extends React.Component {
 
     constructor(props){
         super(props);
+        console.log("props: ",props);
 
         this.state = {
             eps: [],
@@ -32,6 +33,7 @@ export class ProfileView extends React.Component {
         let userFollowers = [];
         let userFollowing = [];
         let userTrackingList = [];
+
 
         refFol.once("value", function (snapshot) {
             snapshot.forEach(function (data) {

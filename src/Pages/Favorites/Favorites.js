@@ -19,14 +19,12 @@ export class Favorites extends React.Component {
             favorites: []
         };
 
-        // fetch home feed
-        let currentUser = {uid: store.getState().auth.uid}; // temporary
+        let currentUser = {uid: store.getState().auth.uid};
         let favorites = [];
         if(currentUser){
             const refFavorites = firebase.database().ref(`users/${currentUser.uid}/favorites`);
             refFavorites.once("value", function (snapshot) {
                 snapshot.forEach(function (data) {
-                    console.log(data.key)
                     firebase.database().ref(`podcasts/${data.key}`).once("value", function (podcast) {
                         if(podcast.val()){
                             let profileImage = '';
@@ -76,7 +74,7 @@ export class Favorites extends React.Component {
             });
         }
 
-        this.timeout1 = setTimeout(() => {this.setState({favorites: favorites, })}, 2000);
+        this.timeout1 = setTimeout(() => {this.setState({favorites: favorites.reverse(), })}, 2000);
     }
     render() {
         return (
