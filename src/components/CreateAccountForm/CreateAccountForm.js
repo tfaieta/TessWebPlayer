@@ -20,14 +20,14 @@ export class CreateAccountForm extends React.Component {
               firebase.database().ref(`usernames/`).child(username.toLowerCase()).once("value", function (snapshot) {
                   if (snapshot.val()) {
                       console.log(snapshot.val().username + " is taken");
-                      store.dispatch(setAuth('', '', false, '', 'Username is taken'));
+                      store.dispatch(setAuth('', '', false, '', 'Username is taken', true));
                   }
                   else {
                       firebase.auth().createUserWithEmailAndPassword(values.email, values.password)
                           .then(user => {
                               // create success
                               let currentUser = {uid: user.user.uid};
-                              store.dispatch(setAuth('', values.email, true, currentUser.uid, ''));
+                              store.dispatch(setAuth('', values.email, true, currentUser.uid, '', false));
                               firebase.database().ref(`usernames`).child(username.toLowerCase()).update({username: username.toLowerCase()});
 
                               firebase.database().ref(`users/${currentUser.uid}`).child('/username')
@@ -78,7 +78,7 @@ export class CreateAccountForm extends React.Component {
                               // failed to create account
                               console.log("Create Account Failed");
                               console.log(error);
-                              store.dispatch(setAuth('', '', false, '', 'Invalid credentials'));
+                              store.dispatch(setAuth('', '', false, '', 'Invalid credentials', true));
                           });
                   }
               }.bind(this)).catch(() => {

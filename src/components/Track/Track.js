@@ -9,6 +9,7 @@ import { setPodcast, setPlayStatus } from "../../actions";
 import {favorited, setCurrentTime, setUserInfo} from "../../actions/index";
 import { NavLink, Link } from 'react-router-dom'
 import firebase from 'firebase';
+import {CopyToClipboard} from 'react-copy-to-clipboard';
 
 
 export const Track = (props) => {
@@ -37,25 +38,7 @@ export const Track = (props) => {
                         <a className="title" >{props.podcast.podcastTitle}</a>
                     </NavLink>
                     <NavLink to={`/view?${props.podcast.podcastArtist}`}>
-                        <a onClick={() =>{
-                            store.dispatch(setUserInfo(props.podcast.username, '', props.podcast.profileImage, props.podcast.podcastArtist, false));
-                            firebase.database().ref(`users/${props.podcast.podcastArtist}/bio`).once('value', function (snapshot) {
-                                if(snapshot.val()){
-                                    if(snapshot.val().bio){
-                                        store.dispatch(setUserInfo(props.podcast.username, snapshot.val().bio, props.podcast.profileImage, props.podcast.podcastArtist, false));
-                                        // const {currentUser} = firebase.auth();       NEED TO BE LOGGED IN
-                                        let currentUser = {uid: 'pgIx9JAiq9aQWcyUZX8AuIdqNmP2'}; // temporary
-                                        if(currentUser){
-                                            firebase.database().ref(`users/${currentUser.uid}/following/${props.podcast.podcastArtist}`).once('value', function (snap) {
-                                                if(snap.val()){
-                                                    store.dispatch(setUserInfo(props.podcast.username, snapshot.val().bio, props.podcast.profileImage, props.podcast.podcastArtist, true));
-                                                }
-                                            })
-                                        }
-                                    }
-                                }
-                            })
-                        }} className="album" >{props.podcast.username}</a>
+                        <a className="album" >{props.podcast.username}</a>
                     </NavLink>
                 </div>
                 <MenuButton
@@ -66,8 +49,11 @@ export const Track = (props) => {
                         <NavLink to={`/episode?${props.podcast.id}`}>
                             <ListItem key={1} primaryText="Episode Info"/>
                         </NavLink>,
-                        <ListItem key={2} primaryText="Share"/>,
-                        <ListItem key={3} primaryText="Add to Playlist"/>,
+                        <ListItem key={2} primaryText="Share Episode"/>,
+                        <CopyToClipboard text={`http://localhost:8080/view?${props.podcast.podcastArtist}`}>
+                            <ListItem key={3} primaryText="Share Podcast"/>
+                        </CopyToClipboard>,
+                        <ListItem key={4} primaryText="Add to Playlist"/>,
                         <ListItem onClick={() => {
                             let currentUser = {uid: store.getState().auth.uid};
                             if(currentUser.uid){
@@ -79,27 +65,9 @@ export const Track = (props) => {
                                     firebase.database().ref(`users/${currentUser.uid}/favorites/`).child(id).update({id});
                                 }
                             }
-                        }} key={4} primaryText={props.podcast.favorited ? 'Remove from Favorites' : 'Add to Favorites'}/>,
+                        }} key={5} primaryText={props.podcast.favorited ? 'Remove from Favorites' : 'Add to Favorites'}/>,
                         <NavLink to={`/view?${props.podcast.podcastArtist}`}>
-                            <ListItem onClick={() => {
-                                store.dispatch(setUserInfo(props.podcast.username, '', props.podcast.profileImage, props.podcast.podcastArtist, false));
-                                firebase.database().ref(`users/${props.podcast.podcastArtist}/bio`).once('value', function (snapshot) {
-                                    if(snapshot.val()){
-                                        if(snapshot.val().bio){
-                                            store.dispatch(setUserInfo(props.podcast.username, snapshot.val().bio, props.podcast.profileImage, props.podcast.podcastArtist, false));
-                                            // const {currentUser} = firebase.auth();       NEED TO BE LOGGED IN
-                                            let currentUser = {uid: 'pgIx9JAiq9aQWcyUZX8AuIdqNmP2'}; // temporary
-                                            if(currentUser){
-                                                firebase.database().ref(`users/${currentUser.uid}/following/${props.podcast.podcastArtist}`).once('value', function (snap) {
-                                                    if(snap.val()){
-                                                        store.dispatch(setUserInfo(props.podcast.username, snapshot.val().bio, props.podcast.profileImage, props.podcast.podcastArtist, true));
-                                                    }
-                                                })
-                                            }
-                                        }
-                                    }
-                                })
-                            }} key={5} primaryText="Go to Profile"/>
+                            <ListItem key={6} primaryText="Go to Profile"/>
                         </NavLink>,
                     ]}
 

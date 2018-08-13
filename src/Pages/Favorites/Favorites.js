@@ -87,7 +87,7 @@ export class Favorites extends React.Component {
                             <div className="container">
                                 <div className="trow-header">
                                     <div className={"tsHeaderTitles"}>
-                                        <h2>Favorites</h2>
+                                        <h2>{store.getState().auth.loggedIn ? 'Favorites' : 'Log in to see your favorites!'}</h2>
                                     </div>
                                 </div>
                                 <div className="row">

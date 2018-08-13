@@ -97,7 +97,7 @@ export class Listen extends React.Component {
                             <div className="container">
                                 <div className="trow-header">
                                     <div className={"tsHeaderTitles"}>
-                                        <h2>From People You Follow</h2>
+                                        <h2>{store.getState().auth.loggedIn ? 'From People You Follow' : 'Log in to see your personalized home feed!'}</h2>
                                     </div>
                                 </div>
                                 <div className="row">

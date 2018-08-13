@@ -3,7 +3,7 @@ export default (state, action) => {
         case "SET_AUTH":
             return {
                 ...state,
-                auth: {username: action.username, email: action.email, loggedIn: action.loggedIn, uid: action.uid, errorMessage: action.errorMessage}
+                auth: {username: action.username, email: action.email, loggedIn: action.loggedIn, uid: action.uid, errorMessage: action.errorMessage, loginRequest: action.loginRequest}
             };
 
         case "SET_PODCAST":
