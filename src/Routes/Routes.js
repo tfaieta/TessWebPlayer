@@ -12,6 +12,9 @@ import {History} from "../Pages/History/History";
 import {Favorites} from "../Pages/Favorites/Favorites";
 import {ProfileView} from "../Pages/ProfileView/ProfileView";
 import {Podcasts} from "../Pages/Podcasts/Podcasts";
+import {Playlists} from "../Pages/Playlists/Playlists";
+import {Playlist} from "../Pages/Playlists/Playlist";
+import {AddToPlaylist} from "../Pages/Playlists/AddToPlaylist";
 
 export class Routes extends React.Component {
     render() {
@@ -28,6 +31,9 @@ export class Routes extends React.Component {
                     <Route path='/history' component={History}/>
                     <Route path='/favorites' component={Favorites}/>
                     <Route path='/podcasts' component={Podcasts}/>
+                    <Route path='/playlists' component={Playlists}/>
+                    <Route path='/playlist' component={Playlist}/>
+                    <Route path='/addtoplaylist' component={AddToPlaylist}/>
                     <Route path='/view' component={ProfileView}/>
                     <Route  component={Notfound}/>
                 </Switch>

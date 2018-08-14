@@ -20,13 +20,20 @@ const AccountMenu = ({simplifiedMenu}) => (
         className={"tsAccountMenu"}
         id={`${!simplifiedMenu ? 'smart-' : ''}avatar-dropdown-menu`}
         menuItems={
-            [
+            store.getState().auth.loggedIn ?
+                [
                 <ListItem key={1} component={Link}  to="/profile" primaryText="Profile"/>,
                 <ListItem key={2} component={Link}  to="/" primaryText="Log out" onClick={() => {
                     firebase.auth().signOut();
-                    store.dispatch(setAuth('', '', false, '', ''));
+                    store.dispatch(setAuth('', '', false, '', '', false));
                 }} />,
-            ]
+                ]
+                :
+                [
+                    <ListItem key={1} component={Link}  to="/" primaryText="Log in" onClick={() => {
+                        store.dispatch(setAuth('', '', false, '', '', true));
+                    }} />,
+                ]
 
         }
         anchor={{
@@ -45,7 +52,7 @@ const AccountMenu = ({simplifiedMenu}) => (
                 <div className={"wrapProText"}>
                     <div>
                         <span className={"proName"}>{store.getState().myUsername}</span>
-                        <div className={"viewLink"}>View profile</div>
+                        <div className={"viewLink"}>{store.getState().auth.loggedIn ? 'View profile' : 'Log in'}</div>
                     </div>
                     <FontIcon>arrow_drop_down</FontIcon>
                 </div>

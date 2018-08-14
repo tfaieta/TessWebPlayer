@@ -6,9 +6,10 @@ import {MenuButton, ListItem,} from 'react-md';
 import Button from "antd/es/button/button";
 import { store } from "../../store";
 import { setPodcast, setPlayStatus } from "../../actions";
-import {setCurrentTime, setUserInfo} from "../../actions/index";
+import {favorited, setCurrentTime, setUserInfo} from "../../actions/index";
 import { NavLink, Link } from 'react-router-dom'
 import firebase from 'firebase';
+import {CopyToClipboard} from 'react-copy-to-clipboard';
 
 
 export const Track = (props) => {
@@ -33,29 +34,11 @@ export const Track = (props) => {
             </div>
             <div className={"trackInfo"}>
                 <div>
-                    <NavLink to='/episode'>
+                    <NavLink to={`/episode?${props.podcast.id}`}>
                         <a className="title" >{props.podcast.podcastTitle}</a>
                     </NavLink>
-                    <NavLink to='/view'>
-                        <a onClick={() =>{
-                            store.dispatch(setUserInfo(props.podcast.username, '', props.podcast.profileImage, props.podcast.podcastArtist, false));
-                            firebase.database().ref(`users/${props.podcast.podcastArtist}/bio`).once('value', function (snapshot) {
-                                if(snapshot.val()){
-                                    if(snapshot.val().bio){
-                                        store.dispatch(setUserInfo(props.podcast.username, snapshot.val().bio, props.podcast.profileImage, props.podcast.podcastArtist, false));
-                                        // const {currentUser} = firebase.auth();       NEED TO BE LOGGED IN
-                                        let currentUser = {uid: 'pgIx9JAiq9aQWcyUZX8AuIdqNmP2'}; // temporary
-                                        if(currentUser){
-                                            firebase.database().ref(`users/${currentUser.uid}/following/${props.podcast.podcastArtist}`).once('value', function (snap) {
-                                                if(snap.val()){
-                                                    store.dispatch(setUserInfo(props.podcast.username, snapshot.val().bio, props.podcast.profileImage, props.podcast.podcastArtist, true));
-                                                }
-                                            })
-                                        }
-                                    }
-                                }
-                            })
-                        }} className="album" >{props.podcast.username}</a>
+                    <NavLink to={`/view?${props.podcast.podcastArtist}`}>
+                        <a className="album" >{props.podcast.username}</a>
                     </NavLink>
                 </div>
                 <MenuButton
@@ -63,31 +46,30 @@ export const Track = (props) => {
                     className={"contextMenu"}
                     icon
                     menuItems={[
-                        <ListItem key={1} primaryText="Episode Info"/>,
-                        <ListItem key={2} primaryText="Share"/>,
-                        <ListItem key={3} primaryText="Add to Queue"/>,
-                        <ListItem key={4} primaryText="Add to Playlist"/>,
-                        <ListItem key={5} primaryText="Add to Favorites"/>,
-                        <NavLink to='/view'>
-                            <ListItem onClick={() => {
-                                store.dispatch(setUserInfo(props.podcast.username, '', props.podcast.profileImage, props.podcast.podcastArtist, false));
-                                firebase.database().ref(`users/${props.podcast.podcastArtist}/bio`).once('value', function (snapshot) {
-                                    if(snapshot.val()){
-                                        if(snapshot.val().bio){
-                                            store.dispatch(setUserInfo(props.podcast.username, snapshot.val().bio, props.podcast.profileImage, props.podcast.podcastArtist, false));
-                                            // const {currentUser} = firebase.auth();       NEED TO BE LOGGED IN
-                                            let currentUser = {uid: 'pgIx9JAiq9aQWcyUZX8AuIdqNmP2'}; // temporary
-                                            if(currentUser){
-                                                firebase.database().ref(`users/${currentUser.uid}/following/${props.podcast.podcastArtist}`).once('value', function (snap) {
-                                                    if(snap.val()){
-                                                        store.dispatch(setUserInfo(props.podcast.username, snapshot.val().bio, props.podcast.profileImage, props.podcast.podcastArtist, true));
-                                                    }
-                                                })
-                                            }
-                                        }
-                                    }
-                                })
-                            }} key={6} primaryText="Go to Profile"/>
+                        <NavLink to={`/episode?${props.podcast.id}`}>
+                            <ListItem key={1} primaryText="Episode Info"/>
+                        </NavLink>,
+                        <ListItem key={2} primaryText="Share Episode"/>,
+                        <CopyToClipboard text={`http://localhost:8080/view?${props.podcast.podcastArtist}`}>
+                            <ListItem key={3} primaryText="Share Podcast"/>
+                        </CopyToClipboard>,
+                        <NavLink to={`/addToPlaylist?${props.podcast.id}`}>
+                            <ListItem key={4} primaryText="Add to Playlist"/>
+                        </NavLink>,
+                        <ListItem onClick={() => {
+                            let currentUser = {uid: store.getState().auth.uid};
+                            if(currentUser.uid){
+                                const id = props.podcast.id;
+                                if(props.podcast.favorited){
+                                    firebase.database().ref(`users/${currentUser.uid}/favorites/${id}`).remove();
+                                }
+                                else{
+                                    firebase.database().ref(`users/${currentUser.uid}/favorites/`).child(id).update({id});
+                                }
+                            }
+                        }} key={5} primaryText={props.podcast.favorited ? 'Remove from Favorites' : 'Add to Favorites'}/>,
+                        <NavLink to={`/view?${props.podcast.podcastArtist}`}>
+                            <ListItem key={6} primaryText="Go to Profile"/>
                         </NavLink>,
                     ]}
 

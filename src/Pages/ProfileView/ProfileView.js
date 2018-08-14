@@ -5,6 +5,7 @@ import {Track} from '../../components/Track/Track'
 import {Button} from 'react-md';
 import firebase from 'firebase';
 import { store } from "../../store";
+import {setUserInfo} from "../../actions/index";
 
 
 export class ProfileView extends React.Component {
@@ -15,6 +16,9 @@ export class ProfileView extends React.Component {
 
     constructor(props){
         super(props);
+        let id = props.location.search.toString().substr(1, props.location.search.toString().length-1);
+        id = id.replace(/%20/g, " ");
+        console.log(id);
 
         this.state = {
             eps: [],
@@ -24,7 +28,74 @@ export class ProfileView extends React.Component {
             userTrackingList: []
         };
 
-        let currentUser = {uid: store.getState().user.id};
+        // fetch profile
+        let currentUser = {uid: id};
+        firebase.database().ref(`/users/${id}/username`).orderByChild("username").once("value", function(snap1) {
+            if(snap1.val()){
+                firebase.database().ref(`/users/${currentUser.uid}/bio`).orderByChild("bio").once("value", function(snap2) {
+                    if(snap2.val()){
+                        firebase.database().ref(`users/${id}/profileImage`).once("value", function (snap3) {
+                            if(snap3.val()){
+                                store.dispatch(setUserInfo(snap1.val().username, snap2.val().bio, snap3.val().profileImage, id, false));
+                                if(firebase.auth().currentUser.uid){
+                                    firebase.database().ref(`users/${firebase.auth().currentUser.uid}/following/${currentUser.uid}`).once("value", function (snap4) {
+                                        if(snap4.val()){
+                                            store.dispatch(setUserInfo(snap1.val().username, snap2.val().bio, snap3.val().profileImage, id, true));
+                                        }
+                                    })
+                                }
+                            }
+                            else{
+                                const storageRef = firebase.storage().ref(`/users/${currentUser.uid}/image-profile-uploaded`);
+                                storageRef.getDownloadURL()
+                                    .then(function(url) {
+                                        store.dispatch(setUserInfo(snap1.val().username, snap2.val().bio, url, id, false));
+                                        if(firebase.auth().currentUser.uid){
+                                            firebase.database().ref(`users/${firebase.auth().currentUser.uid}/following/${currentUser.uid}`).once("value", function (snap4) {
+                                                if(snap4.val()){
+                                                    store.dispatch(setUserInfo(snap1.val().username, snap2.val().bio, snap3.val().profileImage, id, true));
+                                                }
+                                            })
+                                        }
+                                    }).catch(function(error) {
+                                    //
+                                });
+                            }
+                        });
+                    }
+                    else {
+                        firebase.database().ref(`users/${id}/profileImage`).once("value", function (snap3) {
+                            if(snap3.val()){
+                                store.dispatch(setUserInfo(snap1.val().username, "Tell others about yourself", snap3.val().profileImage, id, false));
+                                if(firebase.auth().currentUser.uid){
+                                    firebase.database().ref(`users/${firebase.auth().currentUser.uid}/following/${currentUser.uid}`).once("value", function (snap4) {
+                                        if(snap4.val()){
+                                            store.dispatch(setUserInfo(snap1.val().username, snap2.val().bio, snap3.val().profileImage, id, true));
+                                        }
+                                    })
+                                }
+                            }
+                            else{
+                                const storageRef = firebase.storage().ref(`/users/${id}/image-profile-uploaded`);
+                                storageRef.getDownloadURL()
+                                    .then(function(url) {
+                                        store.dispatch(setUserInfo(snap1.val().username, "Tell others about yourself", url, id, false));
+                                        if(firebase.auth().currentUser.uid){
+                                            firebase.database().ref(`users/${firebase.auth().currentUser.uid}/following/${currentUser.uid}`).once("value", function (snap4) {
+                                                if(snap4.val()){
+                                                    store.dispatch(setUserInfo(snap1.val().username, snap2.val().bio, snap3.val().profileImage, id, true));
+                                                }
+                                            })
+                                        }
+                                    }).catch(function(error) {
+                                    //
+                                });
+                            }
+                        });
+                    }
+                });
+            }
+        });
         const refFol = firebase.database().ref(`users/${currentUser.uid}/followers`);
         const refFollowing = firebase.database().ref(`users/${currentUser.uid}/following`);
         const refTracking = firebase.database().ref(`users/${currentUser.uid}/tracking`);
@@ -32,6 +103,7 @@ export class ProfileView extends React.Component {
         let userFollowers = [];
         let userFollowing = [];
         let userTrackingList = [];
+
 
         refFol.once("value", function (snapshot) {
             snapshot.forEach(function (data) {

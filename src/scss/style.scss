@@ -171,6 +171,16 @@ body {
   flex-direction: row;
 }
 
+.tcontentHead {
+  height: 100%;
+  width: 100%;
+  background-color: #eeeeee;
+  padding-top: 10px;
+  padding-bottom: 20px;
+  display: flex;
+  flex-direction: row;
+}
+
 .trow-column {
   flex-direction: column;
   align-content: flex-start;

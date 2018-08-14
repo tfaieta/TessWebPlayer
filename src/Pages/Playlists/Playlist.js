@@ -2,12 +2,12 @@ import React, {Component} from 'react'
 import {AsideNav} from '../../components/AsideNav/AsideNav'
 import {Header} from '../../components/Header/Header'
 import {Track} from '../../components/Track/Track'
-import {CatchUpWidget} from '../../components/CatchUpWidget/CatchUpWidget'
 import firebase from 'firebase';
 import {store} from "../../store/index";
+import NavLink from "react-router-dom/es/NavLink";
 
 
-export class Listen extends React.Component {
+export class Playlist extends React.Component {
 
     componentWillUnmount(){
         clearTimeout(this.timeout1);
@@ -15,19 +15,21 @@ export class Listen extends React.Component {
 
     constructor(props){
         super(props);
+        let title = props.location.search.toString().substr(1, props.location.search.toString().length-1);
+        title = title.replace(/%20/g, " ");
 
         this.state = {
-            homeFollowedContent: []
+            playlist: [],
+            title: props.location.search.toString().substr(1, props.location.search.toString().length-1).replace(/%20/g, " ")
         };
 
         let currentUser = {uid: store.getState().auth.uid};
-        let homeFollowedContent = [];
-        const refFol = firebase.database().ref(`users/${currentUser.uid}/following`);
-        refFol.once("value", function (snapshot) {
-            snapshot.forEach(function (data) {
-                firebase.database().ref(`users/${data.key}/podcasts`).limitToLast(4).once("value", function (snap) {
-                    snap.forEach(function (pod) {
-                        firebase.database().ref(`podcasts/${pod.key}`).once("value", function (podcast) {
+        let playlist = [];
+        if(currentUser.uid){
+            firebase.database().ref(`users/${currentUser.uid}/playlist/${title}/items`).once("value", function (snapshot) {
+                snapshot.forEach(function (snap) {
+                    if(snap.val().id){
+                        firebase.database().ref(`podcasts/${snap.val().id}`).once("value", function (podcast) {
                             if(podcast.val()){
                                 let profileImage = '';
                                 let podcastURL = '';
@@ -68,41 +70,44 @@ export class Listen extends React.Component {
                                 });
                                 setTimeout(() => {
                                     let ep = {podcastTitle: podcast.val().podcastTitle, podcastArtist: podcast.val().podcastArtist, id: podcast.val().id, username: username, profileImage: profileImage, podcastURL: podcastURL, favorited: favorited};
-                                    homeFollowedContent.push(ep);
-                                    for(let i = homeFollowedContent.length-1; i > 0 && homeFollowedContent[i].id > homeFollowedContent[i-1].id; i--){
-                                        let temp = homeFollowedContent[i-1];
-                                        homeFollowedContent[i-1] = homeFollowedContent[i];
-                                        homeFollowedContent[i] = temp;
-                                    }
+                                    playlist.push(ep);
                                 }, 1000);
                             }
                         })
-                    });
+                    }
                 });
-            })
-        });
+            });
+        }
 
-        this.timeout1 = setTimeout(() => {this.setState({homeFollowedContent: homeFollowedContent, })}, 3000);
+        this.timeout1 = setTimeout(() => {this.setState({playlist: playlist, title: title })}, 2000);
     }
     render() {
         return (
             <div>
                 <Header/>
-
                 <div className="tcontent">
                     <AsideNav/>
                     <div className="tsscrollwrap">
                         <div className="tsscrollcontent">
-
                             <div className="container">
                                 <div className="trow-header">
                                     <div className={"tsHeaderTitles"}>
-                                        <h2>{store.getState().auth.loggedIn ? 'From People You Follow' : 'Log in to see your personalized home feed!'}</h2>
+                                        <h2>{store.getState().auth.loggedIn ? this.state.title : 'Log in to see your playlists!'}</h2>
+                                    </div>
+                                    <div className={"tsHeaderTitles"}>
+                                        <NavLink to={`/playlists`}>
+                                            <a onClick={() => {
+                                                let currentUser = {uid: store.getState().auth.uid};
+                                                if(currentUser.uid){
+                                                    let title = this.state.title;
+                                                    firebase.database().ref(`users/${currentUser.uid}/playlist/${title}`).remove()
+                                                }
+                                            }}>delete</a>
+                                        </NavLink>
                                     </div>
                                 </div>
                                 <div className="row">
-
-                                    {this.state.homeFollowedContent.map((_, i) => (
+                                    {this.state.playlist.map((_, i) => (
                                         <div key={i} className="col-xs-4 col-sm-4 col-md-3 col-lg-2">
                                             <Track menukey={i} podcast={_}/>
                                         </div>

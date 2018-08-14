@@ -1,11 +1,12 @@
-export function setAuth (username, email, bool, uid, error) {
+export function setAuth (username, email, bool, uid, error, request) {
     return {
         type: "SET_AUTH",
         username: username,
         email: email,
         loggedIn: bool,
         uid: uid,
-        errorMessage: error
+        errorMessage: error,
+        loginRequest: request
     }
 }
 
