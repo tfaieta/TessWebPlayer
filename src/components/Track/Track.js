@@ -21,6 +21,7 @@ export class Track extends React.Component {
 
         this.handleHover = this.handleHover.bind(this)
         this.handleReset = this.handleReset.bind(this)
+        this.handlePlayer = this.handlePlayer.bind(this)
     }
 
     handleHover() {
@@ -33,30 +34,45 @@ export class Track extends React.Component {
         this.setState({hover: false})
     }
 
+    handlePlayer() {
+        const {podcast} = this.props;
+        store.dispatch(setPlayStatus('STOPPED'));
+        store.dispatch(setCurrentTime(0));
+        store.dispatch(setPodcast(podcast));
+    }
+
     render() {
         return (
             <div className="tsTrack">
-                <div className="wrapImg">
+                {/* Purely Stylistic: This determines the switching between rendering episode info vs the podcast art */}
+                {this.state.hover ? 
                     <a>
-                    <img src={this.props.podcast.profileImage} alt="track" onClick={() => {
-                        console.log(this.props.podcast.podcastTitle);
-                        console.log(this.props.podcast.podcastArtist);
-                        console.log(this.props.podcast.id);
-                        console.log(this.props.podcast.username);
-                        console.log(this.props.podcast.profileImage);
-                        console.log(this.props.podcast.podcastURL);
-                        console.log(this.props.podcast.favorited);
-                        const {podcast} = this.props;
-                        store.dispatch(setPlayStatus('STOPPED'));
-                        store.dispatch(setCurrentTime(0));
-                        store.dispatch(setPodcast(podcast));
-                        }}
+                        <div className="wrapContainer" onClick={this.handlePlayer} onMouseLeave={this.handleReset}>
+                            <p>THIS IS A TEST</p>        
+                        </div>
+                    </a> 
+                    :
+                    <div className="wrapImg">
+                        <a>
+                            <img src={this.props.podcast.profileImage} alt="track" onClick={() => {
+                                console.log(this.props.podcast.podcastTitle);
+                                console.log(this.props.podcast.podcastArtist);
+                                console.log(this.props.podcast.id);
+                                console.log(this.props.podcast.username);
+                                console.log(this.props.podcast.profileImage);
+                                console.log(this.props.podcast.podcastURL);
+                                console.log(this.props.podcast.favorited);
+                                const {podcast} = this.props;
+                                store.dispatch(setPlayStatus('STOPPED'));
+                                store.dispatch(setCurrentTime(0));
+                                store.dispatch(setPodcast(podcast));
+                                }}
 
-                        onMouseEnter={this.handleHover}
-                        onMouseLeave={this.handleReset}
-                    />
-                    </a>
-                </div>
+                                onMouseEnter={this.handleHover}
+                            />
+                        </a>
+                    </div> 
+                }
                 <div className={"trackInfo"}>
                     <div>
                         <NavLink to='/episode'>
@@ -129,6 +145,6 @@ export class Track extends React.Component {
             </div>
         )
     }
-};
+}
 
 Track.propTypes = {}
