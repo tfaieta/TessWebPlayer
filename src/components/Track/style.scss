@@ -12,6 +12,10 @@
       height: 100%;
     }
   }
+  .wrapImg :hover {
+      opacity: 0.5
+  }
+
   .trackInfo {
     padding: 0px 10px;
     display: flex;
@@ -61,5 +65,4 @@
       overflow: hidden;
     }
   }
-
 }
