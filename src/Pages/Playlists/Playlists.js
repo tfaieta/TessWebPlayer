@@ -65,9 +65,8 @@ export class Playlists extends React.Component {
                                         fullWidth={false}
                                         maxLength={30}
                                         onChange={(value) => {this.setState({playlistTitle: value})}}
-                                    >
-                                    </TextField>
-                                    <a onClick={() => {
+                                    />
+                                    <a className="tcontentHead" onClick={() => {
                                         if(this.state.playlistTitle != ''){
                                             let currentUser = {uid: store.getState().auth.uid};
                                             if(currentUser.uid){
@@ -78,7 +77,7 @@ export class Playlists extends React.Component {
                                                 this.state.playlists.push(newPlaylist)
                                             }
                                         }
-                                    }} >Create</a>
+                                    }} >{this.state.playlistTitle != '' ? 'Create' : ''}</a>
                                 </div>
                                 <div className="column">
                                     {this.state.playlists.map((_, i) => (

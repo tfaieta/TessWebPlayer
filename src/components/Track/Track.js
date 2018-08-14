@@ -53,7 +53,9 @@ export const Track = (props) => {
                         <CopyToClipboard text={`http://localhost:8080/view?${props.podcast.podcastArtist}`}>
                             <ListItem key={3} primaryText="Share Podcast"/>
                         </CopyToClipboard>,
-                        <ListItem key={4} primaryText="Add to Playlist"/>,
+                        <NavLink to={`/addToPlaylist?${props.podcast.id}`}>
+                            <ListItem key={4} primaryText="Add to Playlist"/>
+                        </NavLink>,
                         <ListItem onClick={() => {
                             let currentUser = {uid: store.getState().auth.uid};
                             if(currentUser.uid){
