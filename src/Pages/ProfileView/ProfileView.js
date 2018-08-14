@@ -29,6 +29,7 @@ export class ProfileView extends React.Component {
         };
 
         // fetch profile
+        let currentUser = {uid: id};
         firebase.database().ref(`/users/${id}/username`).orderByChild("username").once("value", function(snap1) {
             if(snap1.val()){
                 firebase.database().ref(`/users/${currentUser.uid}/bio`).orderByChild("bio").once("value", function(snap2) {
@@ -36,12 +37,26 @@ export class ProfileView extends React.Component {
                         firebase.database().ref(`users/${id}/profileImage`).once("value", function (snap3) {
                             if(snap3.val()){
                                 store.dispatch(setUserInfo(snap1.val().username, snap2.val().bio, snap3.val().profileImage, id, false));
+                                if(firebase.auth().currentUser.uid){
+                                    firebase.database().ref(`users/${firebase.auth().currentUser.uid}/following/${currentUser.uid}`).once("value", function (snap4) {
+                                        if(snap4.val()){
+                                            store.dispatch(setUserInfo(snap1.val().username, snap2.val().bio, snap3.val().profileImage, id, true));
+                                        }
+                                    })
+                                }
                             }
                             else{
                                 const storageRef = firebase.storage().ref(`/users/${currentUser.uid}/image-profile-uploaded`);
                                 storageRef.getDownloadURL()
                                     .then(function(url) {
                                         store.dispatch(setUserInfo(snap1.val().username, snap2.val().bio, url, id, false));
+                                        if(firebase.auth().currentUser.uid){
+                                            firebase.database().ref(`users/${firebase.auth().currentUser.uid}/following/${currentUser.uid}`).once("value", function (snap4) {
+                                                if(snap4.val()){
+                                                    store.dispatch(setUserInfo(snap1.val().username, snap2.val().bio, snap3.val().profileImage, id, true));
+                                                }
+                                            })
+                                        }
                                     }).catch(function(error) {
                                     //
                                 });
@@ -49,16 +64,29 @@ export class ProfileView extends React.Component {
                         });
                     }
                     else {
-                        store.dispatch(setBio("Tell others about yourself"));
                         firebase.database().ref(`users/${id}/profileImage`).once("value", function (snap3) {
-                            if(snapshot.val()){
+                            if(snap3.val()){
                                 store.dispatch(setUserInfo(snap1.val().username, "Tell others about yourself", snap3.val().profileImage, id, false));
+                                if(firebase.auth().currentUser.uid){
+                                    firebase.database().ref(`users/${firebase.auth().currentUser.uid}/following/${currentUser.uid}`).once("value", function (snap4) {
+                                        if(snap4.val()){
+                                            store.dispatch(setUserInfo(snap1.val().username, snap2.val().bio, snap3.val().profileImage, id, true));
+                                        }
+                                    })
+                                }
                             }
                             else{
                                 const storageRef = firebase.storage().ref(`/users/${id}/image-profile-uploaded`);
                                 storageRef.getDownloadURL()
                                     .then(function(url) {
                                         store.dispatch(setUserInfo(snap1.val().username, "Tell others about yourself", url, id, false));
+                                        if(firebase.auth().currentUser.uid){
+                                            firebase.database().ref(`users/${firebase.auth().currentUser.uid}/following/${currentUser.uid}`).once("value", function (snap4) {
+                                                if(snap4.val()){
+                                                    store.dispatch(setUserInfo(snap1.val().username, snap2.val().bio, snap3.val().profileImage, id, true));
+                                                }
+                                            })
+                                        }
                                     }).catch(function(error) {
                                     //
                                 });
@@ -68,7 +96,6 @@ export class ProfileView extends React.Component {
                 });
             }
         });
-        let currentUser = {uid: id};
         const refFol = firebase.database().ref(`users/${currentUser.uid}/followers`);
         const refFollowing = firebase.database().ref(`users/${currentUser.uid}/following`);
         const refTracking = firebase.database().ref(`users/${currentUser.uid}/tracking`);
