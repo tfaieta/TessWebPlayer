@@ -8,6 +8,8 @@ import {
     SVGIcon,
     TextField,
 } from 'react-md';
+import { store } from "../../store";
+import { updateSearchValue } from "../../actions";
 
 export const Input = (props) => {
     return (
@@ -19,6 +21,14 @@ export const Input = (props) => {
                 label="Search"
                 customSize="search"
                 fullWidth={true}
+                onChange={(value) => {store.dispatch(updateSearchValue(value))}}
+                onKeyPress={(ev) => {
+                    console.log(`${ev.key}`);
+                    if (ev.key === 'Enter' && store.getState().searchValue != '') {
+                        ev.preventDefault();
+                        props.props.props.history.push(`/search?${store.getState().searchValue}`)
+                    }
+                }}
             />
         </div>
     )

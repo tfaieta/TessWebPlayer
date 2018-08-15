@@ -166,7 +166,7 @@ export class Browse extends React.Component {
     render() {
         return (
             <div>
-                <Header/>
+                <Header props={this.props}/>
 
                 <div className="tcontent">
                     <AsideNav/>

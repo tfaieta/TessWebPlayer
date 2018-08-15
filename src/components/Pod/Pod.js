@@ -11,7 +11,7 @@ export const Pod = (props) => {
     return (
         <div className="tsPod">
             <div className="wrapImg">
-                <NavLink to='/view'>
+                <NavLink to={`/view?${props.user.id}`}>
                     <a>
                         <img src={props.user.profileImage} onClick={() =>{
                             store.dispatch(setUserInfo(props.user.username, '', props.user.profileImage, props.user.id, true));
@@ -19,9 +19,8 @@ export const Pod = (props) => {
                                 if(snapshot.val()){
                                     if(snapshot.val().bio){
                                         store.dispatch(setUserInfo(props.user.username, snapshot.val().bio, props.user.profileImage, props.user.id, true));
-                                        // const {currentUser} = firebase.auth();       NEED TO BE LOGGED IN
-                                        let currentUser = {uid: 'pgIx9JAiq9aQWcyUZX8AuIdqNmP2'}; // temporary
-                                        if(currentUser){
+                                        let currentUser = {uid: store.getState().auth.uid};
+                                        if(currentUser.uid != ''){
                                             firebase.database().ref(`users/${currentUser.uid}/following/${props.user.id}`).once('value', function (snap) {
                                                 if(snap.val()){
                                                     store.dispatch(setUserInfo(props.user.username, snapshot.val().bio, props.user.profileImage, props.user.id, true));
@@ -37,16 +36,15 @@ export const Pod = (props) => {
             </div>
             <div className={"podInfo"}>
                 <div>
-                    <NavLink to='/view'>
+                    <NavLink to={`/view?${props.user.id}`}>
                         <a onClick={() =>{
                             store.dispatch(setUserInfo(props.user.username, '', props.user.profileImage, props.user.id, true));
                             firebase.database().ref(`users/${props.user.id}/bio`).once('value', function (snapshot) {
                                 if(snapshot.val()){
                                     if(snapshot.val().bio){
                                         store.dispatch(setUserInfo(props.user.username, snapshot.val().bio, props.user.profileImage, props.user.id, true));
-                                        // const {currentUser} = firebase.auth();       NEED TO BE LOGGED IN
-                                        let currentUser = {uid: 'pgIx9JAiq9aQWcyUZX8AuIdqNmP2'}; // temporary
-                                        if(currentUser){
+                                        let currentUser = {uid: store.getState().auth.uid};
+                                        if(currentUser.uid != ''){
                                             firebase.database().ref(`users/${currentUser.uid}/following/${props.user.id}`).once('value', function (snap) {
                                                 if(snap.val()){
                                                     store.dispatch(setUserInfo(props.user.username, snapshot.val().bio, props.user.profileImage, props.user.id, true));

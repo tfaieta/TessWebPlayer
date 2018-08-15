@@ -78,6 +78,12 @@ export default (state, action) => {
                 user: { following: action.bool, username: state.user.username, bio: state.user.bio, profileImage: state.user.profileImage, id: state.user.id}
             };
 
+        case "UPDATE_SEARCH":
+            return {
+                ...state,
+                searchValue: action.value
+            };
+
 
         default:
             return state;
