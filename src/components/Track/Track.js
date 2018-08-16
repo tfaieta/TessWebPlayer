@@ -29,6 +29,20 @@ export const Track = (props) => {
                     store.dispatch(setPlayStatus('STOPPED'));
                     store.dispatch(setCurrentTime(0));
                     store.dispatch(setPodcast(podcast));
+
+                    if(store.getState().auth.id != ''){
+                        const user = store.getState().auth.uid;
+                        let id = props.podcast.id;
+                        firebase.database().ref(`podcasts/${id}/plays`).child(user).update({user});
+                        firebase.database().ref(`users/${user}/recentlyPlayed/`).once("value", function (snap) {
+                            snap.forEach(function (data) {
+                                if(data.val().id == id){
+                                    firebase.database().ref(`users/${user}/recentlyPlayed/${data.key}`).remove()
+                                }
+                            });
+                            firebase.database().ref(`users/${user}/recentlyPlayed/`).push({id});
+                        });
+                    }
                 }}/>
                 </a>
             </div>
