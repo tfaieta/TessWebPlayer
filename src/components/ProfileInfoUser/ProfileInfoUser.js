@@ -17,8 +17,9 @@ export const Profile = (props) => {
                 <h4>{props.profileInfo.username}</h4>
                 <div className="follow">
                     <a onClick={() => {
-                        let currentUser = {uid: store.getState().auth.uid};
-                        if(currentUser.uid != ''){
+                        // const {currentUser} = firebase.auth();       NEED TO BE LOGGED IN
+                        let currentUser = {uid: 'pgIx9JAiq9aQWcyUZX8AuIdqNmP2'}; // temporary
+                        if(currentUser){
                             const id = store.getState().user.id;
                             if(store.getState().user.following){
                                 firebase.database().ref(`users/${currentUser.uid}/following/${id}`).remove();

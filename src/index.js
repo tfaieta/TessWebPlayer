@@ -38,7 +38,7 @@ class App extends React.Component {
 
     func(){
         const {currentUser} = firebase.auth();
-        if(currentUser.uid){
+        if(currentUser){
             console.log("Logged in: " + currentUser.uid);
             store.dispatch(setAuth('', '', true, currentUser.uid, '', false));
             firebase.database().ref(`/users/${currentUser.uid}/username`).orderByChild("username").once("value", function(snap) {
