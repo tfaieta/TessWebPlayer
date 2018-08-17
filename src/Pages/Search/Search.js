@@ -59,12 +59,12 @@ export class Search extends React.Component {
                                                         if(currentUser.uid != ''){
                                                             firebase.database().ref(`users/${currentUser.uid}/following/${data.key}`).once('value', function (follow) {
                                                                 if(follow.val()){
-                                                                    pods.push({username: username.val().username, id: data.key, profileImage: image.val().profileImage, bio: bio.val().bio, following: true});
+                                                                    pods.push({username: username.val().username, id: data.key, profileImage: url, bio: bio.val().bio, following: true});
                                                                 }
                                                             })
                                                         }
                                                         else{
-                                                            pods.push({username: username.val().username, id: data.key, profileImage: image.val().profileImage, bio: bio.val().bio, following: false});
+                                                            pods.push({username: username.val().username, id: data.key, profileImage: url, bio: bio.val().bio, following: false});
                                                         }
                                                     }).catch(function(error) {
                                                     //
