@@ -20,7 +20,13 @@ export class Listen extends React.Component {
             homeFollowedContent: []
         };
 
-        let currentUser = {uid: store.getState().auth.uid};
+        let currentUser = '';
+        if(store.getState().auth.uid != ''){
+            currentUser = {uid: store.getState().auth.uid};
+        }
+        else{
+            currentUser = {uid: 'pgIx9JAiq9aQWcyUZX8AuIdqNmP2'};
+        }
         let homeFollowedContent = [];
         const refFol = firebase.database().ref(`users/${currentUser.uid}/following`);
         refFol.once("value", function (snapshot) {
@@ -87,7 +93,7 @@ export class Listen extends React.Component {
     render() {
         return (
             <div>
-                <Header/>
+                <Header props={this.props}/>
 
                 <div className="tcontent">
                     <AsideNav/>

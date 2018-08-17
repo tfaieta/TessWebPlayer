@@ -1,13 +1,13 @@
 import React, {Component} from 'react'
 import {Header} from '../../components/Header/Header'
 import {Profile as ProfileInfo} from '../../components/Profile/Profile'
-import {Track} from '../../components/Track/Track'
-import {Button} from 'react-md';
+import {Button, TextField} from 'react-md';
 import firebase from 'firebase';
 import { store } from "../../store";
+import {setBio, setUsername} from "../../actions/index";
 
 
-export class Profile extends React.Component {
+export class EditProfile extends React.Component {
 
     componentWillUnmount(){
         clearTimeout(this.timeout1);
@@ -21,7 +21,10 @@ export class Profile extends React.Component {
             profileInfo: {username: store.getState().myUsername, bio: store.getState().myBio, profileImage: store.getState().myProfileImage},
             userFollowers: [],
             userFollowing: [],
-            userTrackingList: []
+            userTrackingList: [],
+            newUsername: store.getState().myUsername,
+            newBio: store.getState().myBio,
+            message: '',
         };
 
         let currentUser = {uid: store.getState().auth.uid};
@@ -117,18 +120,60 @@ export class Profile extends React.Component {
                                 <ProfileInfo profileInfo={this.state.profileInfo} userFollowers={this.state.userFollowers} userFollowing={this.state.userFollowing} userTrackingList={this.state.userTrackingList}/>
                             </div>
                             <div className="container">
+                                <a>{this.state.message}</a>
                                 <div className="trow-header">
                                     <div className={"tsHeaderTitles"}>
-                                        <h2>{this.state.eps.length} Episodes</h2>
+                                        <TextField
+                                            id="application-username"
+                                            className={"tsInputText"}
+                                            label='Username'
+                                            defaultValue={store.getState().myUsername}
+                                            fullWidth={true}
+                                            onChange={(value) => this.setState({newUsername: value})}
+                                        />
                                     </div>
                                 </div>
-                                <div className="row">
-                                    {this.state.eps.map((_, i) => (
-                                        <div key={i} className="col-xs-4 col-sm-4 col-md-4 col-lg-3">
-                                            <Track menukey={i} podcast={_}/>
-                                        </div>
-                                    ))}
+                                <div className="trow-header">
+                                    <div className={"tsHeaderTitles"}>
+                                        <TextField
+                                            id="application-username"
+                                            className={"tsInputText"}
+                                            label='Bio'
+                                            defaultValue={store.getState().myBio}
+                                            fullWidth={true}
+                                            onChange={(value) => this.setState({newBio: value})}
+                                        />
+                                    </div>
                                 </div>
+                                <Button onClick={() => {
+                                    let currentUser = {uid: store.getState().auth.uid};
+                                    if(currentUser.uid != ''){
+                                        if(this.state.newUsername != ''){
+                                            firebase.database().ref(`usernames/`).child(this.state.newUsername.toLowerCase()).once("value", function (snapshot) {
+                                                if(snapshot.val() && (this.state.newUsername != store.getState().myUsername)){
+                                                    console.log(snapshot.val().username + " is taken");
+                                                    this.setState({message: 'Username is taken!'})
+                                                }
+                                                else{
+                                                    firebase.database().ref(`users/${currentUser.uid}`).child('/username').once('value', function (data) {
+                                                        firebase.database().ref(`usernames/${data.val().username}`).remove()
+                                                    });
+                                                    firebase.database().ref(`usernames`).child(this.state.newUsername.toLowerCase()).update({username: this.state.newUsername.toLowerCase()});
+                                                    firebase.database().ref(`users/${currentUser.uid}`).child('/username')
+                                                        .update({   username: this.state.newUsername });
+                                                    firebase.database().ref(`users/${currentUser.uid}`).child('/bio')
+                                                        .update({   bio: this.state.newBio  });
+
+                                                    this.setState({message: 'Updated Successfully'});
+                                                    store.dispatch(setUsername(this.state.newUsername));
+                                                    store.dispatch(setBio(this.state.newBio));
+                                                }
+                                            }.bind(this)).catch(() => { console.log("error")} );
+                                        }
+                                    }
+                                }} >
+                                    <h2>Update</h2>
+                                </Button>
                             </div>
                         </div>
                     </div>

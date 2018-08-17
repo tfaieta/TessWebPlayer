@@ -15,6 +15,8 @@ import {Podcasts} from "../Pages/Podcasts/Podcasts";
 import {Playlists} from "../Pages/Playlists/Playlists";
 import {Playlist} from "../Pages/Playlists/Playlist";
 import {AddToPlaylist} from "../Pages/Playlists/AddToPlaylist";
+import {Search} from "../Pages/Search/Search";
+import {EditProfile} from "../Pages/Profile/EditProfile";
 
 export class Routes extends React.Component {
     render() {
@@ -28,6 +30,7 @@ export class Routes extends React.Component {
                     <Route path='/tess-studio' component={TessStudio}/>
                     <Route path='/upload' component={Upload}/>
                     <Route path='/profile' component={Profile}/>
+                    <Route path='/editprofile' component={EditProfile}/>
                     <Route path='/history' component={History}/>
                     <Route path='/favorites' component={Favorites}/>
                     <Route path='/podcasts' component={Podcasts}/>
@@ -35,6 +38,7 @@ export class Routes extends React.Component {
                     <Route path='/playlist' component={Playlist}/>
                     <Route path='/addtoplaylist' component={AddToPlaylist}/>
                     <Route path='/view' component={ProfileView}/>
+                    <Route path='/search' component={Search}/>
                     <Route  component={Notfound}/>
                 </Switch>
             </Router>

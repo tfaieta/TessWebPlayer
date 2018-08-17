@@ -97,3 +97,10 @@ export function followed (text) {
         bool: text
     }
 }
+
+export function updateSearchValue (text) {
+    return {
+        type: "UPDATE_SEARCH",
+        value: text
+    }
+}

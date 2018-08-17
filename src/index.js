@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {Component} from 'react'
 import ReactDOM from 'react-dom'
 import {Routes} from './Routes/Routes'
 import {Footer} from './components/Footer/Footer'
@@ -23,47 +23,57 @@ const config = {
 
 };
 
+
 firebase.initializeApp(config);
 
-// check if logged in & get user's profile info
-const {currentUser} = firebase.auth();
-if(currentUser > 0){
-    console.log("Logged in");
-    store.dispatch(setAuth('', '', true, currentUser.uid, '', false));
-    firebase.database().ref(`/users/${currentUser.uid}/username`).orderByChild("username").once("value", function(snap) {
-        if(snap.val()){
-            store.dispatch(setUsername(snap.val().username));
-        }
-        else {
-            store.dispatch(setUsername("..."));
-        }
-    });
-    firebase.database().ref(`/users/${currentUser.uid}/bio`).orderByChild("bio").once("value", function(snap) {
-        if(snap.val()){
-            store.dispatch(setBio(snap.val().bio));
-        }
-        else {
-            store.dispatch(setBio("Tell others about yourself"));
-        }
-    });
-    firebase.database().ref(`users/${currentUser.uid}/profileImage`).once("value", function (snapshot) {
-        if(snapshot.val()){
-            store.dispatch(setProfileImage(snapshot.val().profileImage));
-        }
-        else{
-            const storageRef = firebase.storage().ref(`/users/${currentUser.uid}/image-profile-uploaded`);
-            storageRef.getDownloadURL()
-                .then(function(url) {
-                    store.dispatch(setProfileImage(url));
-                }).catch(function(error) {
-                //
-            });
-        }
-    });
-}
+
 
 
 class App extends React.Component {
+
+    componentWillMount(){
+        firebase.auth().onAuthStateChanged(this.func);
+    }
+
+
+    func(){
+        const {currentUser} = firebase.auth();
+        if(false){  // not correctly working with 'currentUser.uid'
+            console.log("Logged in: " + currentUser.uid);
+            store.dispatch(setAuth('', '', true, currentUser.uid, '', false));
+            firebase.database().ref(`/users/${currentUser.uid}/username`).orderByChild("username").once("value", function(snap) {
+                if(snap.val()){
+                    store.dispatch(setUsername(snap.val().username));
+                }
+                else {
+                    store.dispatch(setUsername("..."));
+                }
+            });
+            firebase.database().ref(`/users/${currentUser.uid}/bio`).orderByChild("bio").once("value", function(snap) {
+                if(snap.val()){
+                    store.dispatch(setBio(snap.val().bio));
+                }
+                else {
+                    store.dispatch(setBio("Tell others about yourself"));
+                }
+            });
+            firebase.database().ref(`users/${currentUser.uid}/profileImage`).once("value", function (snapshot) {
+                if(snapshot.val()){
+                    store.dispatch(setProfileImage(snapshot.val().profileImage));
+                }
+                else{
+                    const storageRef = firebase.storage().ref(`/users/${currentUser.uid}/image-profile-uploaded`);
+                    storageRef.getDownloadURL()
+                        .then(function(url) {
+                            store.dispatch(setProfileImage(url));
+                        }).catch(function(error) {
+                        //
+                    });
+                }
+            });
+        }
+    }
+
     render() {
         if (!store.getState().auth.loggedIn && store.getState().auth.loginRequest) {
             return(
