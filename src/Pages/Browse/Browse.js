@@ -5,6 +5,7 @@ import {Categories} from '../../components/Categories/Categories'
 import {Track} from '../../components/Track/Track'
 import firebase from 'firebase';
 import {store} from "../../store/index";
+import NavLink from "react-router-dom/es/NavLink";
 
 
 export class Browse extends React.Component {
@@ -178,6 +179,9 @@ export class Browse extends React.Component {
                                         <h1>Popular</h1>
                                         <span className={"subtitle"}>Trending Episodes On Tess</span>
                                     </div>
+                                    <NavLink to="/categories">
+                                        <Categories/>
+                                    </NavLink>
                                 </div>
                                 <div className="row">
                                     {this.state.dataSourceCharts.map((_, i) => (

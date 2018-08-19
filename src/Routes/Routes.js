@@ -17,6 +17,7 @@ import {Playlist} from "../Pages/Playlists/Playlist";
 import {AddToPlaylist} from "../Pages/Playlists/AddToPlaylist";
 import {Search} from "../Pages/Search/Search";
 import {EditProfile} from "../Pages/Profile/EditProfile";
+import {Category} from "../Pages/Categories/Categories";
 
 export class Routes extends React.Component {
     render() {
@@ -25,6 +26,7 @@ export class Routes extends React.Component {
                 <Switch>
                     <Route exact path='/' component={Listen}/>
                     <Route path='/browse' component={Browse}/>
+                    <Route path='/categories' component={Category}/>
                     <Route path='/library' component={Featured}/>
                     <Route path='/learn' component={Learn}/>
                     <Route path='/tess-studio' component={TessStudio}/>
