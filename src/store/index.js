@@ -4,6 +4,7 @@ import reducer from "../reducers";
 const initialState = {
     auth: {username: '', email: '', loggedIn: false, uid: '', errorMessage: '', loginRequest: false},
     myUsername: '', myBio: '', myProfileImage: '',
+    upload: {file: {name: ''}, title: '', description: '', category: ''},
     searchValue: '',
     user: {username: '', bio: '', profileImage: '', id: '', following: false},
     podcast: {podcastTitle: 'Select an episode', podcastArtist: '', id: '', username: 'to start listening', profileImage: '', podcastURL: '', favorited: false},

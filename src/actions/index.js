@@ -104,3 +104,31 @@ export function updateSearchValue (text) {
         value: text
     }
 }
+
+export function updateFile (file) {
+    return {
+        type: "UPDATE_FILE",
+        file: file
+    }
+}
+
+export function updateUploadTitle (text) {
+    return {
+        type: "UPDATE_UPLOAD_TITLE",
+        title: text
+    }
+}
+
+export function updateUploadDescription (text) {
+    return {
+        type: "UPDATE_UPLOAD_DESCRIPTION",
+        description: text
+    }
+}
+
+export function updateUploadCategory (text) {
+    return {
+        type: "UPDATE_UPLOAD_CATEGORY",
+        category: text
+    }
+}

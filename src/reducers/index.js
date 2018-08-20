@@ -84,6 +84,30 @@ export default (state, action) => {
                 searchValue: action.value
             };
 
+        case "UPDATE_FILE":
+            return {
+                ...state,
+                upload: {file: action.file, title: state.upload.title, description: state.upload.description, category: state.upload.category }
+            };
+
+        case "UPDATE_UPLOAD_TITLE":
+            return {
+                ...state,
+                upload: {file: state.upload.file, title: action.title, description: state.upload.description, category: state.upload.category }
+            };
+
+        case "UPDATE_UPLOAD_DESCRIPTION":
+            return {
+                ...state,
+                upload: {file: state.upload.file, title: state.upload.title, description: action.description, category: state.upload.category }
+            };
+
+        case "UPDATE_UPLOAD_CATEGORY":
+            return {
+                ...state,
+                upload: {file: state.upload.file, title: state.upload.title, description: state.upload.description, category: action.category }
+            };
+
 
         default:
             return state;
