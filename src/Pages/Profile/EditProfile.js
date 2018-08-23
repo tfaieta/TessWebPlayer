@@ -1,10 +1,10 @@
 import React, {Component} from 'react'
 import {Header} from '../../components/Header/Header'
 import {Profile as ProfileInfo} from '../../components/Profile/Profile'
-import {Button, TextField} from 'react-md';
+import {Button, TextField, FileInput} from 'react-md';
 import firebase from 'firebase';
 import { store } from "../../store";
-import {setBio, setUsername} from "../../actions/index";
+import {setBio, setProfileImage, setUsername, updateUploadImage} from "../../actions/index";
 
 
 export class EditProfile extends React.Component {
@@ -174,6 +174,45 @@ export class EditProfile extends React.Component {
                                 }} >
                                     <h2>Update</h2>
                                 </Button>
+                                <div>
+                                    <FileInput id="image-upload" labelClassName={"uploadLabel"} accept="image/*" label={store.getState().uploadImage.name != '' ? store.getState().uploadImage.name : 'Choose image'} multiple={false} allowDuplicates={false} name="images" icon={null} disabled={!store.getState().auth.loggedIn}
+                                               onChange={(file) => {
+                                                   console.log(file);
+                                                   store.dispatch(updateUploadImage(file));
+                                                   
+                                                   const {currentUser} = firebase.auth();
+                                                   const storageRef = firebase.storage().ref(`/users/${currentUser.uid}/image-profile-uploaded`).put(file);
+
+                                                   storageRef.on('state_changed', function(snapshot){
+                                                       // Observe state change events such as progress, pause, and resume
+                                                       // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+                                                       var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                                                       console.log('Upload is ' + progress + '% done');
+                                                       this.setState({message: 'Uploading... ' + progress.toFixed(0) + '%'});
+                                                       switch (snapshot.state) {
+                                                           case firebase.storage.TaskState.PAUSED: // or 'paused'
+                                                               console.log('Upload is paused');
+                                                               break;
+                                                           case firebase.storage.TaskState.RUNNING: // or 'running'
+                                                               console.log('Upload is running');
+                                                               break;
+                                                       }
+                                                   }.bind(this), function(error) {
+                                                       // Handle unsuccessful uploads
+                                                       console.log('Error: ' , error);
+                                                       this.setState({message: 'Error when uploading image'});
+                                                   }.bind(this), function() {
+                                                       // Handle successful uploads on complete
+                                                       storageRef.snapshot.ref.getDownloadURL().then(function(downloadURL) {
+                                                           console.log('File available at', downloadURL);
+                                                           store.dispatch(setProfileImage(downloadURL));
+                                                       });
+                                                       console.log('Image Upload successful');
+                                                       this.setState({message: 'Image Upload successful'});
+                                                   }.bind(this));
+                                               }}
+                                    />
+                                </div>
                             </div>
                         </div>
                     </div>

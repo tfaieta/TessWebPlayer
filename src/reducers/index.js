@@ -109,6 +109,13 @@ export default (state, action) => {
             };
 
 
+        case "UPDATE_UPLOAD_IMAGE":
+            return {
+                ...state,
+                uploadImage: action.image
+            };
+
+
         default:
             return state;
     }

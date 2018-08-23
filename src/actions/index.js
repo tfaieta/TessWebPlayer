@@ -132,3 +132,10 @@ export function updateUploadCategory (text) {
         category: text
     }
 }
+
+export function updateUploadImage (image) {
+    return {
+        type: "UPDATE_UPLOAD_IMAGE",
+        image: image
+    }
+}

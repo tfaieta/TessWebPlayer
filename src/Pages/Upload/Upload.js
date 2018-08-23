@@ -68,7 +68,6 @@ export class Upload extends React.Component {
                                         switch (snapshot.state) {
                                             case firebase.storage.TaskState.PAUSED: // or 'paused'
                                                 console.log('Upload is paused');
-                                                this.setState({message: 'Upload is paused'});
                                                 break;
                                             case firebase.storage.TaskState.RUNNING: // or 'running'
                                                 console.log('Upload is running');
