@@ -20,6 +20,10 @@ Contains
 
 [ES6](http://es6-features.org/#Constants)
 
+[Ant Design] (https://ant.design/)
+
+[React Slick]
+
 
 Features
 --------------

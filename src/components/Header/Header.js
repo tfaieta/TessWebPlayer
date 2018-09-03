@@ -10,7 +10,7 @@ export const Header = (props) => {
         <div className="tsHeader">
             <div className="trow theader-row">
                 <div className="tSearchWrap">
-                    <Input/>
+                    <Input props={props}/>
                 </div>
                 <div className="tMainMenuWrap">
                     <MainMenu/>

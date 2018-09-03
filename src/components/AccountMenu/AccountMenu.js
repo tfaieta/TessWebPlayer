@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import './style.scss'
 import thumb from '../../images/thumbplayer.png';
+import { store } from "../../store";
 
 import {
     Avatar,
@@ -13,16 +14,26 @@ import {
 
 } from 'react-md';
 import {Link} from 'react-router-dom'
+import {setAuth} from "../../actions/index";
 const AccountMenu = ({simplifiedMenu}) => (
     <DropdownMenu
         className={"tsAccountMenu"}
         id={`${!simplifiedMenu ? 'smart-' : ''}avatar-dropdown-menu`}
         menuItems={
-            [
-
+            store.getState().auth.loggedIn ?
+                [
                 <ListItem key={1} component={Link}  to="/profile" primaryText="Profile"/>,
-                <ListItem key={2} component={Link}  to="/logout" primaryText="Log out"/>,
-            ]
+                <ListItem key={2} component={Link}  to="/" primaryText="Log out" onClick={() => {
+                    firebase.auth().signOut();
+                    store.dispatch(setAuth('', '', false, '', '', false));
+                }} />,
+                ]
+                :
+                [
+                    <ListItem key={1} component={Link}  to="/" primaryText="Log in" onClick={() => {
+                        store.dispatch(setAuth('', '', false, '', '', true));
+                    }} />,
+                ]
 
         }
         anchor={{
@@ -40,14 +51,14 @@ const AccountMenu = ({simplifiedMenu}) => (
             label={
                 <div className={"wrapProText"}>
                     <div>
-                        <span className={"proName"}>Joe Shmo</span>
-                        <div className={"viewLink"}>View profile</div>
+                        <span className={"proName"}>{store.getState().myUsername}</span>
+                        <div className={"viewLink"}>{store.getState().auth.loggedIn ? 'View profile' : 'Log in'}</div>
                     </div>
                     <FontIcon>arrow_drop_down</FontIcon>
                 </div>
             }
         >
-            <Avatar src={thumb}></Avatar>
+            <Avatar src={store.getState().myProfileImage}></Avatar>
         </AccessibleFakeButton>
     </DropdownMenu>
 );
