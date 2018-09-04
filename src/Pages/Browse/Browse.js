@@ -5,6 +5,7 @@ import {Categories} from '../../components/Categories/Categories'
 import {Track} from '../../components/Track/Track'
 import firebase from 'firebase';
 import {store} from "../../store/index";
+import NavLink from "react-router-dom/es/NavLink";
 
 
 export class Browse extends React.Component {
@@ -159,14 +160,14 @@ export class Browse extends React.Component {
             });
         });
 
-        this.timeout1 = setTimeout(() => {this.setState({dataSourceFresh: fresh, dataSourceCharts: topCharts, onTess: onTess})}, 2000);
+        this.timeout1 = setTimeout(() => {this.setState({dataSourceFresh: fresh, dataSourceCharts: topCharts, onTess: onTess})}, 2500);
 
     }
 
     render() {
         return (
             <div>
-                <Header/>
+                <Header props={this.props}/>
 
                 <div className="tcontent">
                     <AsideNav/>
@@ -178,7 +179,9 @@ export class Browse extends React.Component {
                                         <h1>Popular</h1>
                                         <span className={"subtitle"}>Trending Episodes On Tess</span>
                                     </div>
-                                    <Categories/>
+                                    <NavLink to="/categories">
+                                        <Categories/>
+                                    </NavLink>
                                 </div>
                                 <div className="row">
                                     {this.state.dataSourceCharts.map((_, i) => (
@@ -194,7 +197,6 @@ export class Browse extends React.Component {
                                         <h1>Fresh & New</h1>
                                         <span className={"subtitle"}>New Episodes On Tess</span>
                                     </div>
-                                    <Categories/>
                                 </div>
                                 <div className="row">
                                     {this.state.dataSourceFresh.map((_, i) => (
@@ -210,7 +212,6 @@ export class Browse extends React.Component {
                                         <h1>Tess Creators</h1>
                                         <span className={"subtitle"}>Episodes created on Tess</span>
                                     </div>
-                                    <Categories/>
                                 </div>
                                 <div className="row">
                                     {this.state.onTess.map((_, i) => (

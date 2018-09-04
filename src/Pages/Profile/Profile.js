@@ -109,7 +109,7 @@ export class Profile extends React.Component {
     render() {
         return (
             <div>
-                <Header/>
+                <Header props={this.props}/>
                 <div className="tcontent profile-page">
                     <div className="tsscrollwrap">
                         <div className="tsscrollcontent">

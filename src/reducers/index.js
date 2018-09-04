@@ -3,7 +3,7 @@ export default (state, action) => {
         case "SET_AUTH":
             return {
                 ...state,
-                auth: {username: action.username, email: action.email, loggedIn: action.loggedIn, uid: action.uid, errorMessage: action.errorMessage}
+                auth: {username: action.username, email: action.email, loggedIn: action.loggedIn, uid: action.uid, errorMessage: action.errorMessage, loginRequest: action.loginRequest}
             };
 
         case "SET_PODCAST":
@@ -76,6 +76,43 @@ export default (state, action) => {
             return {
                 ...state,
                 user: { following: action.bool, username: state.user.username, bio: state.user.bio, profileImage: state.user.profileImage, id: state.user.id}
+            };
+
+        case "UPDATE_SEARCH":
+            return {
+                ...state,
+                searchValue: action.value
+            };
+
+        case "UPDATE_FILE":
+            return {
+                ...state,
+                upload: {file: action.file, title: state.upload.title, description: state.upload.description, category: state.upload.category }
+            };
+
+        case "UPDATE_UPLOAD_TITLE":
+            return {
+                ...state,
+                upload: {file: state.upload.file, title: action.title, description: state.upload.description, category: state.upload.category }
+            };
+
+        case "UPDATE_UPLOAD_DESCRIPTION":
+            return {
+                ...state,
+                upload: {file: state.upload.file, title: state.upload.title, description: action.description, category: state.upload.category }
+            };
+
+        case "UPDATE_UPLOAD_CATEGORY":
+            return {
+                ...state,
+                upload: {file: state.upload.file, title: state.upload.title, description: state.upload.description, category: action.category }
+            };
+
+
+        case "UPDATE_UPLOAD_IMAGE":
+            return {
+                ...state,
+                uploadImage: action.image
             };
 
 

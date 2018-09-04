@@ -8,7 +8,7 @@ export class Featured extends React.Component {
     render() {
         return (
             <div>
-                <Header/>
+                <Header props={this.props}/>
                 <div className="tcontent">
                     <AsideNav/>
                     <div className="tsscrollwrap">
@@ -31,13 +31,6 @@ export class Featured extends React.Component {
                                 <div className="trow-header">
                                     <NavLink className={"tsHeaderTitles"} to='/favorites'>
                                         <a className="title" >Favorites</a>
-                                    </NavLink>
-                                </div>
-                            </div>
-                            <div className="container">
-                                <div className="trow-header">
-                                    <NavLink className={"tsHeaderTitles"} to='/highlights'>
-                                        <a className="title" >Highlights</a>
                                     </NavLink>
                                 </div>
                             </div>

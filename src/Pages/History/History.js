@@ -79,7 +79,7 @@ export class History extends React.Component {
     render() {
         return (
             <div>
-                <Header/>
+                <Header props={this.props}/>
                 <div className="tcontent">
                     <AsideNav/>
                     <div className="tsscrollwrap">
@@ -87,7 +87,7 @@ export class History extends React.Component {
                             <div className="container">
                                 <div className="trow-header">
                                     <div className={"tsHeaderTitles"}>
-                                        <h2>History</h2>
+                                        <h2>{store.getState().auth.loggedIn ? 'History' : 'Log in to see your listening history!'}</h2>
                                     </div>
                                 </div>
                                 <div className="row">

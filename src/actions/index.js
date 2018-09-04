@@ -1,11 +1,12 @@
-export function setAuth (username, email, bool, uid, error) {
+export function setAuth (username, email, bool, uid, error, request) {
     return {
         type: "SET_AUTH",
         username: username,
         email: email,
         loggedIn: bool,
         uid: uid,
-        errorMessage: error
+        errorMessage: error,
+        loginRequest: request
     }
 }
 
@@ -94,5 +95,47 @@ export function followed (text) {
     return {
         type: "FOLLOWED",
         bool: text
+    }
+}
+
+export function updateSearchValue (text) {
+    return {
+        type: "UPDATE_SEARCH",
+        value: text
+    }
+}
+
+export function updateFile (file) {
+    return {
+        type: "UPDATE_FILE",
+        file: file
+    }
+}
+
+export function updateUploadTitle (text) {
+    return {
+        type: "UPDATE_UPLOAD_TITLE",
+        title: text
+    }
+}
+
+export function updateUploadDescription (text) {
+    return {
+        type: "UPDATE_UPLOAD_DESCRIPTION",
+        description: text
+    }
+}
+
+export function updateUploadCategory (text) {
+    return {
+        type: "UPDATE_UPLOAD_CATEGORY",
+        category: text
+    }
+}
+
+export function updateUploadImage (image) {
+    return {
+        type: "UPDATE_UPLOAD_IMAGE",
+        image: image
     }
 }

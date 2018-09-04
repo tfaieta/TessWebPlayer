@@ -3,6 +3,7 @@ import {AsideNav} from '../../components/AsideNav/AsideNav'
 import {Header} from '../../components/Header/Header'
 import firebase from 'firebase';
 import {Pod} from "../../components/Pod/Pod";
+import {store} from "../../store/index";
 
 
 export class Podcasts extends React.Component {
@@ -18,9 +19,7 @@ export class Podcasts extends React.Component {
             podcasts: []
         };
 
-        // fetch home feed
-        // const {currentUser} = firebase.auth();       NEED TO BE LOGGED IN
-        let currentUser = {uid: 'pgIx9JAiq9aQWcyUZX8AuIdqNmP2'}; // temporary
+        let currentUser = {uid: store.getState().auth.uid};
         let podcasts = [];
         if(currentUser){
             const refFol = firebase.database().ref(`users/${currentUser.uid}/following`);
@@ -69,7 +68,7 @@ export class Podcasts extends React.Component {
     render() {
         return (
             <div>
-                <Header/>
+                <Header props={this.props}/>
                 <div className="tcontent">
                     <AsideNav/>
                     <div className="tsscrollwrap">
@@ -77,7 +76,7 @@ export class Podcasts extends React.Component {
                             <div className="container">
                                 <div className="trow-header">
                                     <div className={"tsHeaderTitles"}>
-                                        <h2>Podcasts</h2>
+                                        <h2>{store.getState().auth.loggedIn ? 'Podcasts' : 'Log in to see your followed podcasts!'}</h2>
                                     </div>
                                 </div>
                                 <div className="row">

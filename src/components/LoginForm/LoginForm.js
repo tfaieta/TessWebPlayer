@@ -11,7 +11,7 @@ export class LoginForm extends React.Component {
 
     handleSubmit = (e) => {
         e.preventDefault();
-        store.dispatch(setAuth('', '', false, '', ''));
+        store.dispatch(setAuth('', '', false, '', '', true));
         this.props.form.validateFields((err, values) => {
           if (!err) {
             console.log('Received values of form: ', values);
@@ -20,7 +20,7 @@ export class LoginForm extends React.Component {
                 .then(user => {
                     // login success
                      let currentUser = {uid: user.user.uid}
-                     store.dispatch(setAuth('', values.email, true, currentUser.uid, ''));
+                     store.dispatch(setAuth('', values.email, true, currentUser.uid, '', false));
                      firebase.database().ref(`/users/${currentUser.uid}/username`).orderByChild("username").once("value", function(snap) {
                          if(snap.val()){
                              store.dispatch(setUsername(snap.val().username));
@@ -56,7 +56,7 @@ export class LoginForm extends React.Component {
                     // login failed, need error message here
                     console.log("Login Failed!");
                     console.log(error);
-                    store.dispatch(setAuth('', '', false, '', 'Incorrect email or password'));
+                    store.dispatch(setAuth('', '', false, '', 'Incorrect email or password', true));
                 });
           }
         });
